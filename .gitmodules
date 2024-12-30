@@ -1,0 +1,6 @@
+[submodule "api"]
+	path = api
+	url = git@github.com:dionsnoeijen/polysynergy-api.git
+[submodule "portal"]
+	path = portal
+	url = git@github.com:dionsnoeijen/polysynergy-portal.git
