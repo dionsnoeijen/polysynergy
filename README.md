@@ -34,6 +34,11 @@ The **Orchestrator** is a Docker-based setup that integrates multiple services t
    - **API:** [http://localhost:8000](http://localhost:8000)
    - **Portal:** [http://localhost:4000](http://localhost:4000)
 
+4. **Access django admin**
+   - **Url:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
+   - **Username:** localadmin
+   - **Password:** localadmin@polysynergy.com
+
 ---
 
 ## **Features**
