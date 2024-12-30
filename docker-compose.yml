@@ -23,4 +23,18 @@ services:
     depends_on:
       - db
 
+  portal:
+    build:
+      context: ./portal
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./portal:/app
+      - ./portal/node_modules:/app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      NEXT_PUBLIC_POLYSYNERGY_API: "http://localhost:8000/api/v1"
+
 volumes: {}
