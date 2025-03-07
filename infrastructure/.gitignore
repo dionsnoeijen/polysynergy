@@ -1,0 +1,10 @@
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+
+# Terraform config
+terraform.tfvars
+
+# Terraform cache & provider plugins
+.terraform/
+.terraform.lock.hcl
