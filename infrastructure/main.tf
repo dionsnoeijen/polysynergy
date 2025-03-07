@@ -24,10 +24,13 @@ module "database" {
   db_password             = var.db_password
   db_name                 = "polysynergy_db"
   vpc_security_group_ids  = [module.iam_security.ecs_sg_id]
+  subnet1_id              = module.network.subnet1_id
+  subnet2_id              = module.network.subnet2_id
 }
 
 module "ecs" {
   source                = "./ecs"
+  hosted_zone_id        = "/hostedzone/Z00983943HO41LU8F7S0Q"
   cluster_name          = "polysynergy-cluster"
   vpc_id                = module.network.vpc_id
   lb_subnets            = [module.network.subnet1_id, module.network.subnet2_id]
@@ -57,6 +60,7 @@ module "ecs" {
 }
 
 module "amplify" {
+  hosted_zone_id = "/hostedzone/Z00983943HO41LU8F7S0Q"
   source         = "./amplify"
   app_name       = "polysynergy-portal"
   repository_url = "https://github.com/dionsnoeijen/polysynergy-portal"

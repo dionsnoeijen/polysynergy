@@ -96,3 +96,11 @@ resource "aws_ecs_service" "api_service" {
     container_port   = var.container_port
   }
 }
+
+resource "aws_route53_record" "api_cert_validation" {
+  zone_id = var.hosted_zone_id
+  name    = [for dvo in aws_acm_certificate.api_cert.domain_validation_options : dvo.resource_record_name][0]
+  type    = [for dvo in aws_acm_certificate.api_cert.domain_validation_options : dvo.resource_record_type][0]
+  records = [[for dvo in aws_acm_certificate.api_cert.domain_validation_options : dvo.resource_record_value][0]]
+  ttl     = 300
+}

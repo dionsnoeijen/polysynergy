@@ -120,3 +120,8 @@ variable "ecr_repo_name" {
   type        = string
   default     = "polysynergy-api"
 }
+
+variable "hosted_zone_id" {
+  description = "De Route53 Hosted Zone ID"
+  type        = string
+}

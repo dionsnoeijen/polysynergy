@@ -1,8 +1,8 @@
 resource "aws_amplify_app" "portal" {
-  name        = var.app_name
-  repository  = var.repository_url
+  name         = var.app_name
+  repository   = var.repository_url
   access_token = var.github_token
-  platform    = "WEB"
+  platform     = "WEB"
 }
 
 resource "aws_amplify_branch" "main" {
@@ -17,4 +17,12 @@ resource "aws_acm_certificate" "portal_cert" {
   lifecycle {
     prevent_destroy = true
   }
+}
+
+resource "aws_route53_record" "portal_cert_validation" {
+  zone_id = var.hosted_zone_id
+  name    = [for dvo in aws_acm_certificate.portal_cert.domain_validation_options : dvo.resource_record_name][0]
+  type    = [for dvo in aws_acm_certificate.portal_cert.domain_validation_options : dvo.resource_record_type][0]
+  records = [[for dvo in aws_acm_certificate.portal_cert.domain_validation_options : dvo.resource_record_value][0]]
+  ttl     = 300
 }

@@ -24,3 +24,11 @@ variable "db_name" {
 variable "vpc_security_group_ids" {
   type = list(string)
 }
+
+variable "subnet1_id" {
+  type = string
+}
+
+variable "subnet2_id" {
+  type = string
+}

@@ -26,3 +26,8 @@ variable "domain_name" {
   type        = string
   default     = "portal.polysynergy.com"
 }
+
+variable "hosted_zone_id" {
+  description = "De Route53 Hosted Zone ID"
+  type        = string
+}
