@@ -93,6 +93,15 @@ variable "container_environment" {
   default = []
 }
 
+variable "container_secrets" {
+    description = "Secrets voor de container"
+    type        = list(object({
+        name      = string
+        valueFrom = string
+    }))
+    default = []
+}
+
 variable "ecs_subnets" {
   description = "Subnet IDs voor de ECS service"
   type        = list(string)
@@ -123,5 +132,25 @@ variable "ecr_repo_name" {
 
 variable "hosted_zone_id" {
   description = "De Route53 Hosted Zone ID"
+  type        = string
+}
+
+variable "aws_region" {
+  description = "AWS regio waarin de resources worden aangemaakt"
+  type        = string
+}
+
+variable "private_rt_id" {
+  description = "ID van de private route table"
+  type        = string
+}
+
+variable "ecs_private_subnets" {
+  description = "Private Subnet IDs voor de ECS service"
+  type        = list(string)
+}
+
+variable "ecs_task_role_arn" {
+  description = "ARN van de ECS Task Role"
   type        = string
 }

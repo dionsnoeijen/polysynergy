@@ -82,3 +82,40 @@ Here are the key environment variables used in the project:
 ```bash
 docker compose logs -f
 ```
+
+# Infrastructure
+
+Local connection to database is not possible without connecting to the bastion host.
+
+### Connection to bastion host
+```bash
+ssh -i ~/.ssh/id_ed25519 ubuntu@3.67.184.46
+```
+
+### Connect to database
+```bash
+ssh -i ~/.ssh/id_ed25519 -L 5432:terraform-20250307093612815300000001.cercqw3oenfg.eu-central-1.rds.amazonaws.com:5432 ubuntu@3.67.184.46
+```
+
+### Execute command in a container
+```bash
+aws ecs execute-command \
+  --cluster polysynergy-cluster \
+  --task $(aws ecs list-tasks --cluster polysynergy-cluster --query "taskArns[0]" --output text) \
+  --container api \
+  --command "/bin/bash" \
+  --interactive
+```
+
+### Get ip address of bastion host
+```bash
+aws ec2 describe-instances \
+  --filters "Name=tag:Name,Values=Bastion Host" \
+  --query "Reservations[*].Instances[*].PublicIpAddress" \
+  --output text
+```
+
+### Show logs
+```bash
+aws logs tail /ecs/api-task --follow
+```

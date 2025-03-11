@@ -1,3 +1,8 @@
 variable "db_username" {}
 variable "db_password" {}
 variable "github_token" {}
+variable "cognito_app_client_id" {}
+variable "aws_access_key_id" {}
+variable "aws_secret_access_key" {}
+variable "email_host_user" {}
+variable "email_host_password" {}

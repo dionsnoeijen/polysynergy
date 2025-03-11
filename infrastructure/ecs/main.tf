@@ -49,7 +49,11 @@ resource "aws_lb_listener" "https" {
 resource "aws_acm_certificate" "api_cert" {
   domain_name       = var.api_domain_name
   validation_method = "DNS"
-  # Eventueel subject_alternative_names toevoegen als dat nodig is
+}
+
+resource "aws_cloudwatch_log_group" "ecs_api_task" {
+  name              = "/ecs/api-task"
+  retention_in_days = 7
 }
 
 resource "aws_ecs_task_definition" "api_task" {
@@ -59,6 +63,7 @@ resource "aws_ecs_task_definition" "api_task" {
   cpu                      = var.task_cpu
   memory                   = var.task_memory
   execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.ecs_task_role_arn
 
   container_definitions = jsonencode([
     {
@@ -73,7 +78,16 @@ resource "aws_ecs_task_definition" "api_task" {
           protocol      = "tcp"
         }
       ],
-      environment  = var.container_environment
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/api-task"
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = "ecs"
+        }
+      },
+      environment  = var.container_environment,
+      secrets      = var.container_secrets
     }
   ])
 }
@@ -85,8 +99,10 @@ resource "aws_ecs_service" "api_service" {
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
 
+  enable_execute_command = true
+
   network_configuration {
-    subnets         = var.ecs_subnets
+    subnets         = var.ecs_private_subnets
     security_groups = var.ecs_security_groups
   }
 
@@ -104,3 +120,30 @@ resource "aws_route53_record" "api_cert_validation" {
   records = [[for dvo in aws_acm_certificate.api_cert.domain_validation_options : dvo.resource_record_value][0]]
   ttl     = 300
 }
+
+resource "aws_vpc_endpoint" "ecr_api" {
+  vpc_id            = var.vpc_id
+  service_name      = "com.amazonaws.eu-central-1.ecr.api"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = var.ecs_subnets
+  security_group_ids = var.ecs_security_groups
+  private_dns_enabled = true
+}
+
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  vpc_id            = var.vpc_id
+  service_name      = "com.amazonaws.eu-central-1.ecr.dkr"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = var.ecs_subnets
+  security_group_ids = var.ecs_security_groups
+  private_dns_enabled = true
+}
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id       = var.vpc_id
+  service_name = "com.amazonaws.eu-central-1.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids = [var.private_rt_id]
+}
+
+

@@ -26,6 +26,25 @@ module "database" {
   vpc_security_group_ids  = [module.iam_security.ecs_sg_id]
   subnet1_id              = module.network.subnet1_id
   subnet2_id              = module.network.subnet2_id
+  ecs_sg_id               = module.iam_security.ecs_sg_id
+  ssh_key_name            = "bastion-key"
+  vpc_id                  = module.network.vpc_id
+}
+
+module "secrets" {
+  source = "./secrets"
+  db_secret_json = jsonencode({
+    DATABASE_PASSWORD = var.db_password
+  })
+  cognito_app_client_id = var.cognito_app_client_id
+  aws_access_key_id = var.aws_access_key_id
+  aws_secret_access_key = var.aws_secret_access_key
+  email_host_user = var.email_host_user
+  email_host_password = var.email_host_password
+  vpc_id = module.network.vpc_id
+  subnet1_id = module.network.subnet1_id
+  subnet2_id = module.network.subnet2_id
+  ecs_sg_id = module.iam_security.ecs_sg_id
 }
 
 module "ecs" {
@@ -48,8 +67,57 @@ module "ecs" {
   container_port        = 8000
   container_environment = [
     {
-      name  = "DATABASE_URL"
-      value = "postgres://${var.db_username}:${var.db_password}@${module.database.rds_endpoint}/polysynergy_db"
+      name  = "DATABASE_NAME",
+      value = "polysynergy_db"
+    },
+    {
+      name  = "DATABASE_USER",
+      value = var.db_username
+    },
+    {
+      name  = "DATABASE_HOST",
+      value = module.database.rds_endpoint
+    },
+    {
+      name  = "DATABASE_PORT",
+      value = "5432"
+    },
+    {
+      name  = "DJANGO_ENV"
+      value = "production"
+    },
+    { name = "COGNITO_AWS_REGION", value = "eu-central-1" },
+    { name = "COGNITO_USER_POOL_ID", value = "eu-central-1_4YIwY5azU" },
+    { name = "AWS_REGION", value = "eu-central-1" },
+    { name = "AWS_ACM_CERT_ARN", value = "arn:aws:acm:eu-central-1:754508895309:certificate/cc97f106-2a3a-45c9-bfcf-66398a4b3052" },
+    { name = "AWS_LAMBDA_EXECUTION_ROLE", value = "arn:aws:iam::754508895309:role/PolySynergyLambdaExecution" },
+    { name = "AWS_LAMBDA_LAYER_ARN", value = "arn:aws:lambda:eu-central-1:754508895309:layer:poly_nodes_layer:9" },
+    { name = "PORTAL_URL", value = "https://portal.polysynergy.com" }
+  ]
+  container_secrets = [
+    {
+      name      = "DATABASE_PASSWORD",
+      valueFrom = "${module.secrets.db_secret_arn}:DATABASE_PASSWORD::"
+    },
+    {
+      name      = "COGNITO_APP_CLIENT_ID",
+      valueFrom = "${module.secrets.app_secrets_arn}:COGNITO_APP_CLIENT_ID::"
+    },
+    {
+      name      = "AWS_ACCESS_KEY_ID",
+      valueFrom = "${module.secrets.app_secrets_arn}:AWS_ACCESS_KEY_ID::"
+    },
+    {
+      name      = "AWS_SECRET_ACCESS_KEY",
+      valueFrom = "${module.secrets.app_secrets_arn}:AWS_SECRET_ACCESS_KEY::"
+    },
+    {
+      name      = "EMAIL_HOST_USER",
+      valueFrom = "${module.secrets.app_secrets_arn}:EMAIL_HOST_USER::"
+    },
+    {
+      name      = "EMAIL_HOST_PASSWORD",
+      valueFrom = "${module.secrets.app_secrets_arn}:EMAIL_HOST_PASSWORD::"
     }
   ]
   ecs_subnets         = [module.network.subnet1_id, module.network.subnet2_id]
@@ -57,6 +125,10 @@ module "ecs" {
   desired_count       = 1
   service_name        = "api-service"
   ecr_repo_name       = "polysynergy-api"
+  aws_region          = "eu-central-1"
+  private_rt_id       = module.network.private_rt_id
+  ecs_private_subnets = [module.network.private_subnet1_id, module.network.private_subnet2_id]
+  ecs_task_role_arn   = module.iam_security.ecs_task_role_arn
 }
 
 module "amplify" {

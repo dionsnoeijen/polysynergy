@@ -32,3 +32,15 @@ variable "subnet1_id" {
 variable "subnet2_id" {
   type = string
 }
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "ecs_sg_id" {
+  type = string
+}
+
+variable "ssh_key_name" {
+  type = string
+}
