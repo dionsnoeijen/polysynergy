@@ -49,7 +49,7 @@ resource "aws_instance" "bastion" {
   ami           = "ami-04a5bacc58328233d"  # Ubuntu 22.04 LTS in eu-central-1
   instance_type = "t2.micro"
   subnet_id     = var.subnet1_id
-  security_groups = [aws_security_group.bastion_sg.id]
+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
   key_name      = var.ssh_key_name
 
   tags = {

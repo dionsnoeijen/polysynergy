@@ -128,7 +128,7 @@ module "ecs" {
   ]
   ecs_subnets         = [module.network.subnet1_id, module.network.subnet2_id]
   ecs_security_groups = [module.iam_security.ecs_sg_id]
-  desired_count       = 1
+  desired_count       = 2
   service_name        = "api-service"
   ecr_repo_name       = "polysynergy-api"
   aws_region          = "eu-central-1"
