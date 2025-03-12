@@ -9,3 +9,7 @@ output "ecs_execution_role_arn" {
 output "ecs_task_role_arn" {
   value = aws_iam_role.ecs_task_role.arn
 }
+
+output "lb_security_group_id" {
+  value = aws_security_group.lb_sg.id
+}

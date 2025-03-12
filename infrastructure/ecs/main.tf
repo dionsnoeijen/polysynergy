@@ -20,6 +20,15 @@ resource "aws_lb_target_group" "api_tg" {
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
+
+  health_check {
+    path                = "/api/health/"
+    interval            = 30
+    timeout             = 5
+    unhealthy_threshold = 2
+    healthy_threshold   = 2
+    matcher             = "200"
+  }
 }
 
 resource "aws_lb_listener" "http" {
@@ -71,6 +80,7 @@ resource "aws_ecs_task_definition" "api_task" {
       image        = "${aws_ecr_repository.api_repo.repository_url}:latest"
       cpu          = tonumber(var.task_cpu),
       memory       = tonumber(var.task_memory),
+      command = ["python", "manage.py", "runserver", "0.0.0.0:8000"],
       portMappings = [
         {
           containerPort = var.container_port,
@@ -99,7 +109,9 @@ resource "aws_ecs_service" "api_service" {
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
 
-  enable_execute_command = true
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 200
+  enable_execute_command             = true
 
   network_configuration {
     subnets         = var.ecs_private_subnets

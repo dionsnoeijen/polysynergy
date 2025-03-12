@@ -14,6 +14,7 @@ module "iam_security" {
   ecs_execution_role_name        = "ecs_execution_role"
   ecs_policy_attachment_name     = "ecs-task-execution-policy"
   ecs_task_execution_policy_arn  = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  lb_security_group_id           = module.iam_security.lb_security_group_id
 }
 
 module "database" {
@@ -42,6 +43,7 @@ module "secrets" {
   email_host_user = var.email_host_user
   email_host_password = var.email_host_password
   vpc_id = module.network.vpc_id
+  secret_key = var.secret_key
   subnet1_id = module.network.subnet1_id
   subnet2_id = module.network.subnet2_id
   ecs_sg_id = module.iam_security.ecs_sg_id
@@ -53,7 +55,7 @@ module "ecs" {
   cluster_name          = "polysynergy-cluster"
   vpc_id                = module.network.vpc_id
   lb_subnets            = [module.network.subnet1_id, module.network.subnet2_id]
-  lb_security_groups    = [module.iam_security.ecs_sg_id]
+  lb_security_groups    = [module.iam_security.lb_security_group_id]
   lb_name               = "api-load-balancer"
   tg_name               = "api-target-group"
   listener_port         = 80
@@ -118,6 +120,10 @@ module "ecs" {
     {
       name      = "EMAIL_HOST_PASSWORD",
       valueFrom = "${module.secrets.app_secrets_arn}:EMAIL_HOST_PASSWORD::"
+    },
+    {
+      name      = "SECRET_KEY",
+      valueFrom = "${module.secrets.app_secrets_arn}:SECRET_KEY::"
     }
   ]
   ecs_subnets         = [module.network.subnet1_id, module.network.subnet2_id]

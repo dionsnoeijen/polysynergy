@@ -6,3 +6,4 @@ variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 variable "email_host_user" {}
 variable "email_host_password" {}
+variable "secret_key" {}

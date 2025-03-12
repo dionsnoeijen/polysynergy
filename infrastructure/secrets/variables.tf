@@ -25,17 +25,21 @@ variable "cognito_app_client_id" {
 }
 
 variable "aws_access_key_id" {
-    type = string
+  type = string
 }
 
 variable "aws_secret_access_key" {
-    type = string
+  type = string
 }
 
 variable "email_host_user" {
-    type = string
+  type = string
 }
 
 variable "email_host_password" {
-    type = string
+  type = string
+}
+
+variable "secret_key" {
+  type = string
 }

@@ -20,3 +20,8 @@ variable "ecs_task_execution_policy_arn" {
   type        = string
   default     = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
+
+variable "lb_security_group_id" {
+  description = "ID van de security group voor de load balancer"
+  type        = string
+}
