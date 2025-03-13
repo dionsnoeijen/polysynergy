@@ -21,6 +21,8 @@ resource "aws_lb_target_group" "api_tg" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
+  load_balancing_algorithm_type = "round_robin"
+
   health_check {
     path                = "/api/health/"
     interval            = 30
@@ -28,6 +30,11 @@ resource "aws_lb_target_group" "api_tg" {
     unhealthy_threshold = 2
     healthy_threshold   = 2
     matcher             = "200"
+  }
+
+  stickiness {
+    type            = "lb_cookie"
+    enabled         = false
   }
 }
 
