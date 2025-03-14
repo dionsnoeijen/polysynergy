@@ -35,6 +35,6 @@ services:
     environment:
       NODE_ENV: development
       PORT: 4000
-      NEXT_PUBLIC_POLYSYNERGY_API: "http://localhost:8000/api/v1"
+      NEXT_PUBLIC_POLYSYNERGY_API_URL: "http://localhost:8000/api/v1"
 
 volumes: {}

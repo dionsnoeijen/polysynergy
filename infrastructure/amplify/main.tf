@@ -2,7 +2,7 @@ resource "aws_amplify_app" "portal" {
   name         = var.app_name
   repository   = var.repository_url
   access_token = var.github_token
-  platform     = "WEB"
+  platform     = "WEB_COMPUTE"
 
   environment_variables = {
     NEXT_PUBLIC_AWS_COGNITO_AUTHORITY     = "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_4YIwY5azU"
@@ -10,6 +10,7 @@ resource "aws_amplify_app" "portal" {
     NEXT_PUBLIC_AWS_COGNITO_CLIENT_ID     = "2tbsdgjk6tfd8fqchmlcn47ir2"
     NEXT_PUBLIC_AWS_COGNITO_LOGOUT_URL    = "https://portal.polysynergy.com/sign-out"
     NEXT_PUBLIC_AWS_COGNITO_REDIRECT_URL  = "https://portal.polysynergy.com"
+    NEXT_PUBLIC_POLYSYNERGY_API_URL       = "https://api.polysynergy.com/api/v1"
   }
 }
 
