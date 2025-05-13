@@ -43,3 +43,15 @@ variable "email_host_password" {
 variable "secret_key" {
   type = string
 }
+
+variable "pubnub_publish_key" {
+  type = string
+}
+
+variable "pubnub_subscribe_key" {
+  type = string
+}
+
+variable "pubnub_secret_key" {
+  type = string
+}

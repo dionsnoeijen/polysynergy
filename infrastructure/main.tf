@@ -47,6 +47,9 @@ module "secrets" {
   subnet1_id = module.network.subnet1_id
   subnet2_id = module.network.subnet2_id
   ecs_sg_id = module.iam_security.ecs_sg_id
+  pubnub_publish_key = var.pubnub_publish_key
+  pubnub_subscribe_key = var.pubnub_subscribe_key
+  pubnub_secret_key = var.pubnub_secret_key
 }
 
 module "ecs" {

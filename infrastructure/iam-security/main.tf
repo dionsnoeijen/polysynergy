@@ -65,6 +65,23 @@ resource "aws_security_group" "ecs_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Specifieke egress regels voor SES
+  egress {
+    from_port   = 587
+    to_port     = 587
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow outbound SMTP for SES"
+  }
+
+  egress {
+    from_port   = 465
+    to_port     = 465
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow outbound SMTPS for SES"
+  }
+
   tags = {
     Name = "main-ecs-security-group"
   }
@@ -138,6 +155,25 @@ resource "aws_iam_policy" "ecs_ecr_access" {
   })
 }
 
+resource "aws_iam_policy" "ecs_ses_access" {
+  name        = "ECSTaskSESAccess"
+  description = "Allow ECS Task to send emails via SES"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "ses:SendEmail",
+          "ses:SendRawEmail"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role" "ecs_task_role" {
   name = "ecs_task_role"
 
@@ -169,6 +205,11 @@ resource "aws_iam_role_policy_attachment" "ecs_secrets_policy_attachment" {
 resource "aws_iam_role_policy_attachment" "ecs_ecr_policy_attachment" {
   role       = aws_iam_role.ecs_execution_role.name
   policy_arn = aws_iam_policy.ecs_ecr_access.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ses_policy_attachment" {
+  role       = aws_iam_role.ecs_execution_role.name
+  policy_arn = aws_iam_policy.ecs_ses_access.arn
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_attachment" {

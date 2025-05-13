@@ -7,3 +7,6 @@ variable "aws_secret_access_key" {}
 variable "email_host_user" {}
 variable "email_host_password" {}
 variable "secret_key" {}
+variable "pubnub_publish_key" {}
+variable "pubnub_subscribe_key" {}
+variable "pubnub_secret_key" {}

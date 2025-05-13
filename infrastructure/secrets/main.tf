@@ -28,6 +28,9 @@ resource "aws_secretsmanager_secret_version" "app_secrets_version" {
     AWS_SECRET_ACCESS_KEY   = var.aws_secret_access_key
     EMAIL_HOST_USER         = var.email_host_user
     EMAIL_HOST_PASSWORD     = var.email_host_password
-    SECRET_KEY              = var.secret_key
+    SECRET_KEY              = var.secret_key,
+    PUBNUB_PUBLISH_KEY      = var.pubnub_publish_key,
+    PUBNUB_SUBSCRIBE_KEY    = var.pubnub_subscribe_key,
+    PUBNUB_SECRET_KEY       = var.pubnub_secret_key,
   })
 }
