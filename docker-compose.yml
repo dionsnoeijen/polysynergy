@@ -9,6 +9,8 @@ services:
       - ./db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - internal
 
   api:
     build:
@@ -18,10 +20,13 @@ services:
     environment:
       - DEBUG=1
       - DATABASE_URL=postgres://polysynergy_user:securepassword@db:5432/polysynergy_db
+      - ROUTER_URL=http://router:8080
     ports:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - internal
 
   portal:
     build:
@@ -37,4 +42,21 @@ services:
       PORT: 4000
       NEXT_PUBLIC_POLYSYNERGY_API_URL: "http://localhost:8000/api/v1"
 
-volumes: {}
+  router:
+    build:
+      context: ./router
+    container_name: router-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./router:/app
+    env_file:
+      - ./router/.env
+    networks:
+      - internal
+
+volumes: { }
+
+networks:
+  internal:
+    driver: bridge

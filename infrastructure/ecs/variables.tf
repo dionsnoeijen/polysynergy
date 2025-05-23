@@ -11,12 +11,12 @@ variable "vpc_id" {
 
 variable "lb_subnets" {
   description = "Subnet IDs voor de load balancer"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "lb_security_groups" {
   description = "Security groups voor de load balancer"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "lb_name" {
@@ -86,7 +86,7 @@ variable "container_port" {
 
 variable "container_environment" {
   description = "Environment variabelen voor de container"
-  type        = list(object({
+  type = list(object({
     name  = string
     value = string
   }))
@@ -94,22 +94,22 @@ variable "container_environment" {
 }
 
 variable "container_secrets" {
-    description = "Secrets voor de container"
-    type        = list(object({
-        name      = string
-        valueFrom = string
-    }))
-    default = []
+  description = "Secrets voor de container"
+  type = list(object({
+    name      = string
+    valueFrom = string
+  }))
+  default = []
 }
 
 variable "ecs_subnets" {
   description = "Subnet IDs voor de ECS service"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "ecs_security_groups" {
   description = "Security groups voor de ECS service"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "desired_count" {
@@ -147,7 +147,7 @@ variable "private_rt_id" {
 
 variable "ecs_private_subnets" {
   description = "Private Subnet IDs voor de ECS service"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "ecs_task_role_arn" {

@@ -25,9 +25,9 @@ resource "aws_lb_target_group" "api_tg" {
 
   health_check {
     path                = "/api/health/"
-    interval            = 30
-    timeout             = 5
-    unhealthy_threshold = 2
+    interval            = 30         # Geef meer ademruimte
+    timeout             = 10         # Meer tijd per check
+    unhealthy_threshold = 5
     healthy_threshold   = 2
     matcher             = "200"
   }
@@ -87,7 +87,6 @@ resource "aws_ecs_task_definition" "api_task" {
       image        = "${aws_ecr_repository.api_repo.repository_url}:latest"
       cpu          = tonumber(var.task_cpu),
       memory       = tonumber(var.task_memory),
-      command = ["python", "manage.py", "runserver", "0.0.0.0:8000"],
       portMappings = [
         {
           containerPort = var.container_port,
@@ -164,5 +163,3 @@ resource "aws_vpc_endpoint" "s3" {
   vpc_endpoint_type = "Gateway"
   route_table_ids = [var.private_rt_id]
 }
-
-

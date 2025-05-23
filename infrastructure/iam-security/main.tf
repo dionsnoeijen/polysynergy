@@ -34,6 +34,52 @@ resource "aws_security_group" "lb_sg" {
   }
 }
 
+resource "aws_security_group" "lb_sg_router" {
+  name   = "router-lb-security-group"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "router-lb-security-group"
+  }
+}
+
+resource "aws_security_group" "router_ecs_sg" {
+  name   = "router-ecs-security-group"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # of specifieker: alleen lb_sg
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "router-ecs-security-group"
+  }
+}
+
 resource "aws_security_group" "ecs_sg" {
   vpc_id = var.vpc_id
 
@@ -85,6 +131,16 @@ resource "aws_security_group" "ecs_sg" {
   tags = {
     Name = "main-ecs-security-group"
   }
+}
+
+resource "aws_security_group_rule" "allow_lb_to_router_ecs" {
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.router_ecs_sg.id
+  source_security_group_id = aws_security_group.lb_sg_router.id
+  description              = "Allow Router ALB to reach ECS tasks on port 8080"
 }
 
 resource "aws_security_group_rule" "allow_lb_to_ecs" {

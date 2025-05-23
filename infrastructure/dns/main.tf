@@ -17,3 +17,15 @@ resource "aws_route53_record" "portal_dns" {
   records = [var.portal_default_domain]
   ttl     = 300
 }
+
+resource "aws_route53_record" "router_wildcard" {
+  zone_id = var.hosted_zone_id
+  name    = var.router_record_name
+  type    = "A"
+
+  alias {
+    name                   = var.router_alias_name
+    zone_id                = var.router_alias_zone_id
+    evaluate_target_health = true
+  }
+}
