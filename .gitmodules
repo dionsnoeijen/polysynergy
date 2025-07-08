@@ -7,3 +7,6 @@
 [submodule "router"]
 	path = router
 	url = git@github.com:dionsnoeijen/polysynergy-router.git
+[submodule "api-local"]
+	path = api-local
+	url = git@github.com:dionsnoeijen/polysynergy-api-local.git
