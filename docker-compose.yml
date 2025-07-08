@@ -30,18 +30,19 @@ services:
     env_file:
       - ./api/.env
 
-  backend_lite:
+  api_local:
     build:
-      context: ./backend-lite
+      context: ./api-local
     ports:
       - "8090:8090"
     volumes:
-      - ./backend-lite:/app
-      - ./backend-lite/data:/data
+      - ./api-local:/app
+      - ./api-local/data:/data
+      - ./nodes:/nodes
     networks:
       - internal
     environment:
-      - PROJECT_DB=/app/shared.db
+      - PROJECT_DB=/app/polysynergy.db
 
   portal:
     build:

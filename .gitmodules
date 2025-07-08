@@ -10,3 +10,6 @@
 [submodule "api-local"]
 	path = api-local
 	url = git@github.com:dionsnoeijen/polysynergy-api-local.git
+[submodule "nodes"]
+	path = nodes
+	url = git@github.com:dionsnoeijen/polysynergy-nodes.git
