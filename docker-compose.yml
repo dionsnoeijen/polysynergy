@@ -27,6 +27,21 @@ services:
       - db
     networks:
       - internal
+    env_file:
+      - ./api/.env
+
+  backend_lite:
+    build:
+      context: ./backend-lite
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend-lite:/app
+      - ./backend-lite/data:/data
+    networks:
+      - internal
+    environment:
+      - PROJECT_DB=/app/shared.db
 
   portal:
     build:

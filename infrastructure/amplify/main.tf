@@ -11,6 +11,7 @@ resource "aws_amplify_app" "portal" {
     NEXT_PUBLIC_AWS_COGNITO_LOGOUT_URL    = "https://portal.polysynergy.com/sign-out"
     NEXT_PUBLIC_AWS_COGNITO_REDIRECT_URL  = "https://portal.polysynergy.com"
     NEXT_PUBLIC_POLYSYNERGY_API_URL       = "https://api.polysynergy.com/api/v1"
+    NEXT_PUBLIC_PUBNUB_SUBSCRIBE_KEY      = "sub-c-80d02b83-83a9-4989-ad3a-93a32a6d748e"
   }
 }
 
@@ -34,7 +35,7 @@ resource "aws_acm_certificate" "portal_cert" {
   validation_method = "DNS"
 
   lifecycle {
-    prevent_destroy = true
+    # prevent_destroy = true
   }
 }
 
