@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: polysynergy_db
       POSTGRES_USER: polysynergy_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRESS_PASSWORD: ${POSTGRES_PASSWORD}
     env_file:
       - .env.prod
     volumes:
