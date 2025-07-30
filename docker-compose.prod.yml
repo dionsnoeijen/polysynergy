@@ -4,7 +4,9 @@ services:
     environment:
       POSTGRES_DB: polysynergy_db
       POSTGRES_USER: polysynergy_user
-      POSTGRES_PASSWORD: securepassword
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - .env.prod
     volumes:
       - ./db_data:/var/lib/postgresql/data
     ports:
@@ -16,6 +18,9 @@ services:
     image: redis:8
     ports:
       - "6379:6379"
+    volumes:
+      - ./redis/redis.prod.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     networks:
       - internal
 
@@ -25,6 +30,8 @@ services:
       dockerfile: ./api-local/Dockerfile
     ports:
       - "8090:8090"
+    env_file:
+      - .env.prod
     volumes:
       - ./api-local:/app
       - ./nodes:/nodes
@@ -34,7 +41,7 @@ services:
       - internal
     environment:
       - PROJECT_DB=/sqlite_data/polysynergy.db
-      - REDIS_URL=redis://redis:6379/0
+      - REDIS_URL=redis://:$(REDIS_PASSWORD)@redis:6379/0
     depends_on:
       - db
       - redis
