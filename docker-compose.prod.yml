@@ -19,25 +19,6 @@ services:
     networks:
       - internal
 
-# @todo: Remove after full replacement is done 
-#  api:
-#    build:
-#      context: ./api
-#    volumes:
-#      - ./api:/app
-#    environment:
-#      - DEBUG=1
-#      - DATABASE_URL=postgres://polysynergy_user:securepassword@db:5432/polysynergy_db
-#      - ROUTER_URL=http://router:8080
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - db
-#    networks:
-#      - internal
-#    env_file:
-#      - ./api/.env
-
   api_local:
     build:
       context: .
@@ -57,20 +38,6 @@ services:
     depends_on:
       - db
       - redis
-
-  portal:
-    build:
-      context: ./portal
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./portal:/app
-      - ./portal/node_modules:/app/node_modules
-    environment:
-      NODE_ENV: development
-      PORT: 4000
-      NEXT_PUBLIC_POLYSYNERGY_API_URL: "http://localhost:8000/api/v1"
 
   router:
     build:

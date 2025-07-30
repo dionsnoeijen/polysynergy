@@ -13,3 +13,9 @@
 [submodule "nodes"]
 	path = nodes
 	url = git@github.com:dionsnoeijen/polysynergy-nodes.git
+[submodule "node_runner"]
+	path = node_runner
+	url = git@github.com:dionsnoeijen/polysynergy-node-runner.git
+[submodule "nodes_agno"]
+	path = nodes_agno
+	url = git@github.com:dionsnoeijen/polysynergy-nodes-agno.git

@@ -1,0 +1,7 @@
+api.polysynergy.com {
+    reverse_proxy api_local:8090
+}
+
+*.polysynergy.com {
+    reverse_proxy router:8080
+}
