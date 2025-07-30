@@ -31,7 +31,7 @@ services:
     ports:
       - "8090:8090"
     env_file:
-      - .env.prod
+      - ./api-local/.env
     volumes:
       - ./api-local:/app
       - ./nodes:/nodes
