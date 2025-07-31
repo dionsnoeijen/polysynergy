@@ -3,3 +3,5 @@
 .DS_Store
 .idea/
 .env.prod
+/lambda_runner
+
