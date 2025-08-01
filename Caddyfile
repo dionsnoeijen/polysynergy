@@ -1,3 +1,0 @@
-api.polysynergy.com {
-    reverse_proxy api_local:8090
-}

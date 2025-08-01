@@ -53,7 +53,6 @@ services:
       - internal
     environment:
       - PROJECT_DB=/sqlite_data/polysynergy.db
-      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - db
       - redis

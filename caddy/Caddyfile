@@ -1,0 +1,12 @@
+{
+    email info@polysynergy.com
+    acme_dns route53
+}
+
+*.polysynergy.com {
+    reverse_proxy router:8080
+}
+
+api.polysynergy.com {
+    reverse_proxy api_local:8090
+}

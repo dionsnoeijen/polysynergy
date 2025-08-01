@@ -4,7 +4,6 @@ services:
     environment:
       POSTGRES_DB: polysynergy_db
       POSTGRES_USER: polysynergy_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     env_file:
       - .env.prod
     volumes:
@@ -59,14 +58,20 @@ services:
       - internal
 
   caddy:
-    image: caddy:2
+    build:
+      context: ./docker/caddy
+      dockerfile: Dockerfile
     container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - AWS_REGION=eu-central-1
+    env_file:
+      - .env.prod
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
