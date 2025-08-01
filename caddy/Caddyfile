@@ -1,9 +1,13 @@
 {
     email info@polysynergy.com
+    acme_ca https://acme-v02.api.letsencrypt.org/directory
     acme_dns route53
 }
 
 *.polysynergy.com {
+    tls {
+        delay 10s
+    }
     reverse_proxy router:8080
 }
 
