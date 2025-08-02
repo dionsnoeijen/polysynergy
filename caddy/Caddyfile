@@ -1,16 +1,34 @@
 {
     email info@polysynergy.com
     acme_ca https://acme-v02.api.letsencrypt.org/directory
-    acme_dns route53
 }
 
-*.polysynergy.com {
+# API endpoint
+api.polysynergy.com {
     tls {
-        delay 10s
+        dns route53 {
+            propagation_timeout 2m
+        }
+    }
+    reverse_proxy api_local:8090
+}
+
+# Router service endpoint
+router.polysynergy.com {
+    tls {
+        dns route53 {
+            propagation_timeout 2m
+        }
     }
     reverse_proxy router:8080
 }
 
-api.polysynergy.com {
-    reverse_proxy api_local:8090
+# Wildcard voor alle andere subdomains
+*.polysynergy.com {
+    tls {
+        dns route53 {
+            propagation_timeout 2m
+        }
+    }
+    reverse_proxy router:8080
 }
