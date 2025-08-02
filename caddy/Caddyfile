@@ -6,9 +6,7 @@
 # API endpoint
 api.polysynergy.com {
     tls {
-        dns route53 {
-            propagation_timeout 2m
-        }
+        dns route53
     }
     reverse_proxy api_local:8090
 }
@@ -16,9 +14,7 @@ api.polysynergy.com {
 # Router service endpoint
 router.polysynergy.com {
     tls {
-        dns route53 {
-            propagation_timeout 2m
-        }
+        dns route53
     }
     reverse_proxy router:8080
 }
@@ -26,9 +22,7 @@ router.polysynergy.com {
 # Wildcard voor alle andere subdomains
 *.polysynergy.com {
     tls {
-        dns route53 {
-            propagation_timeout 2m
-        }
+        dns route53
     }
     reverse_proxy router:8080
 }
