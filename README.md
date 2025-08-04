@@ -8,7 +8,7 @@
 
 ## 🚧 Work in Progress
 
-**This project is currently under active development and is not yet ready for local installation and setup.** We are working on making AWS cloud dependencies optional to enable easier local development and testing. Please check back soon for updates.
+**This project is currently under active development and is not yet ready for local installation and setup.** Work is in progress to make AWS cloud dependencies optional to enable easier local development and testing. Please check back soon for updates.
 
 ### 🔗 Submodule Repositories
 
@@ -187,7 +187,7 @@ poetry run pytest         # Run tests
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our contributing guidelines and code of conduct before getting started.
+Contributions are welcome! Please see the contributing guidelines and code of conduct before getting started.
 
 ### Development Workflow
 1. Fork the repository
@@ -223,5 +223,5 @@ This project is licensed under the Business Source License 1.1 (BSL 1.1). See th
 ---
 
 <div align="center">
-  Made with ❤️ by the PolySynergy team
+  Made with ❤️
 </div>
