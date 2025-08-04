@@ -19,25 +19,6 @@ services:
     networks:
       - internal
 
-# @todo: Remove after full replacement is done 
-#  api:
-#    build:
-#      context: ./api
-#    volumes:
-#      - ./api:/app
-#    environment:
-#      - DEBUG=1
-#      - DATABASE_URL=postgres://polysynergy_user:securepassword@db:5432/polysynergy_db
-#      - ROUTER_URL=http://router:8080
-#    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - db
-#    networks:
-#      - internal
-#    env_file:
-#      - ./api/.env
-
   api_local:
     build:
       context: .

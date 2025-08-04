@@ -3,7 +3,6 @@
     acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
 
-# API endpoint
 api.polysynergy.com {
     tls {
         dns route53
@@ -11,7 +10,6 @@ api.polysynergy.com {
     reverse_proxy api_local:8090
 }
 
-# Router service endpoint
 router.polysynergy.com {
     tls {
         dns route53
@@ -19,7 +17,6 @@ router.polysynergy.com {
     reverse_proxy router:8080
 }
 
-# Wildcard voor alle andere subdomains
 *.polysynergy.com {
     tls {
         dns route53
