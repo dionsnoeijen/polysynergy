@@ -28,7 +28,7 @@ The following components are maintained as separate repositories and included as
 PolySynergy Orchestrator is a **microservices-based visual automation platform** that enables users to create, manage, and execute node-based workflows through an intuitive drag-and-drop interface. Build complex automation pipelines with AI agents, integrations, and custom logic - all through a visual canvas.
 
 <div align="center">
-  <img src="./portal/images/image-a.png" alt="PolySynergy Visual Editor" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"/>
+  <img src="images/image-a.png" alt="PolySynergy Visual Editor" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"/>
 </div>
 
 ## 🌟 Key Features
