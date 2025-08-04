@@ -65,23 +65,6 @@ services:
     networks:
       - internal
 
-  caddy:
-    image: caddy:2
-    container_name: caddy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - api_local
-      - router
-    networks:
-      - internal
-
 volumes:
   caddy_data:
   caddy_config:
