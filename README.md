@@ -106,8 +106,8 @@ Each submodule has its own documentation, tests, and development workflow. See i
 ### Development Setup
 ```bash
 # Clone the repository
-git clone --recurse-submodules <repository-url>
-cd orchestrator
+git clone --recurse-submodules https://github.com/dionsnoeijen/polysynergy-orchestrator.git
+cd polysynergy-orchestrator
 
 # Start all services
 docker compose up -d
@@ -212,8 +212,7 @@ This project is licensed under the Business Source License 1.1 (BSL 1.1). See th
 ## 🌐 Links
 
 - **Website**: [polysynergy.com](https://polysynergy.com)
-- **Documentation**: [docs.polysynergy.com](https://docs.polysynergy.com)
-- **Community**: [Join our Discord](https://discord.gg/polysynergy)
+- **Community**: [Join our Discord](https://discord.gg/H8eQACAhkX)
 
 ## 🚧 Roadmap
 
