@@ -33,6 +33,7 @@ services:
       - ./api-local/.env
     volumes:
       - ./api-local:/app
+      - ./documentation:/documentation
       - ./nodes:/nodes
       - ./node_runner:/node_runner
       - ./nodes_agno:/nodes_agno
