@@ -27,6 +27,7 @@ services:
       - "8090:8090"
     volumes:
       - ./api-local:/app
+      - ./documentation:/documentation
       - ./nodes:/nodes
       - ./node_runner:/node_runner
       - ./nodes_agno:/nodes_agno
