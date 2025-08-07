@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "guides",
+      "title": "Guides",
+      "description": "Step-by-step guides for using PolySynergy Orchestrator",
+      "icon": "book-open",
+      "order": 1
+    },
+    {
+      "id": "tutorials",
+      "title": "Tutorials",
+      "description": "Hands-on tutorials to build real workflows",
+      "icon": "academic-cap",
+      "order": 2
+    },
+    {
+      "id": "reference",
+      "title": "Reference",
+      "description": "Technical reference documentation",
+      "icon": "document-text",
+      "order": 3
+    }
+  ],
+  "navigation": [
+    {
+      "category": "guides",
+      "items": [
+        {
+          "id": "getting-started",
+          "title": "Getting Started",
+          "file": "getting-started.md",
+          "order": 1
+        },
+        {
+          "id": "editor-basics",
+          "title": "Editor Basics",
+          "file": "editor-basics.md",
+          "order": 2
+        },
+        {
+          "id": "creating-workflows",
+          "title": "Creating Workflows",
+          "file": "creating-workflows.md",
+          "order": 3
+        },
+        {
+          "id": "working-with-nodes",
+          "title": "Working with Nodes",
+          "file": "working-with-nodes.md",
+          "order": 4
+        },
+        {
+          "id": "variables-and-connections",
+          "title": "Variables and Connections",
+          "file": "variables-and-connections.md",
+          "order": 5
+        },
+        {
+          "id": "publishing-and-deployment",
+          "title": "Publishing and Deployment",
+          "file": "publishing-and-deployment.md",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "category": "tutorials",
+      "items": [
+        {
+          "id": "first-workflow",
+          "title": "Your First Workflow",
+          "file": "first-workflow.md",
+          "order": 1
+        },
+        {
+          "id": "api-automation",
+          "title": "Building an API Automation",
+          "file": "api-automation.md",
+          "order": 2
+        },
+        {
+          "id": "data-processing-pipeline",
+          "title": "Data Processing Pipeline",
+          "file": "data-processing-pipeline.md",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "category": "reference",
+      "items": [
+        {
+          "id": "node-development",
+          "title": "Developing Custom Nodes",
+          "file": "node-development.md",
+          "order": 1
+        },
+        {
+          "id": "api-reference",
+          "title": "API Reference",
+          "file": "api-reference.md",
+          "order": 2
+        },
+        {
+          "id": "configuration",
+          "title": "Configuration",
+          "file": "configuration.md",
+          "order": 3
+        },
+        {
+          "id": "troubleshooting",
+          "title": "Troubleshooting",
+          "file": "troubleshooting.md",
+          "order": 4
+        }
+      ]
+    }
+  ]
+}
