@@ -25,12 +25,15 @@ services:
       dockerfile: ./api-local/Dockerfile
     ports:
       - "8090:8090"
+    env_file:
+      - ./api-local/.env
     volumes:
       - ./api-local:/app
       - ./documentation:/documentation
       - ./nodes:/nodes
       - ./node_runner:/node_runner
       - ./nodes_agno:/nodes_agno
+      - ./nodes_dev:/nodes_dev
     networks:
       - internal
     environment:
