@@ -1,7 +1,7 @@
 ---
 title: "Developing Custom Nodes"
 category: "reference"
-order: 1
+order: 2
 tags: ["development", "nodes", "python", "advanced"]
 description: "Learn how to create custom nodes for PolySynergy Orchestrator"
 last_updated: "2025-01-07"
@@ -9,18 +9,19 @@ last_updated: "2025-01-07"
 
 # Developing Custom Nodes
 
-This guide explains how to create custom nodes for PolySynergy Orchestrator, allowing you to extend the platform with your own functionality.
+This guide explains how to create custom nodes for PolySynergy, allowing you to extend the platform with your own functionality.
 
 ## Prerequisites
 
-- Python 3.9 or higher
+- Python 3.12 or higher
 - Understanding of Python programming
-- Familiarity with PolySynergy Orchestrator concepts
+- Familiarity with PolySynergy concepts
 - Development environment set up
 
 ## Node Development Overview
 
 Nodes in PolySynergy are Python classes that:
+
 1. Inherit from a base Node class
 2. Use decorators to define metadata
 3. Implement an `execute` method
@@ -32,37 +33,7 @@ Nodes in PolySynergy are Python classes that:
 Here's the minimal structure for a custom node:
 
 ```python
-from polysynergy_node_runner.setup_context.node import node
-from polysynergy_node_runner.setup_context.variable import Variable
-from polysynergy_node_runner.execution_context.node_executor import NodeExecutor
 
-@node(
-    name="My Custom Node",
-    category="custom",
-    icon="custom.svg",
-)
-class MyCustomNode:
-    def __init__(self):
-        self.input_var = Variable(
-            name="input_text",
-            type="String",
-            description="Text to process"
-        )
-        self.output_var = Variable(
-            name="output_text",
-            type="String",
-            description="Processed text"
-        )
-
-    def execute(self, executor: NodeExecutor):
-        # Get input value
-        input_text = executor.get_variable_value(self.input_var)
-        
-        # Process the data
-        output_text = input_text.upper()
-        
-        # Set output value
-        executor.set_variable_value(self.output_var, output_text)
 ```
 
 ## Node Decorator
@@ -75,7 +46,7 @@ The `@node()` decorator defines node metadata:
     category="category_name",      # Groups nodes in the library
     icon="icon_name.svg",         # Icon file (optional)
     version="1.0.0",              # Node version (optional)
-    description="Brief description" # Tooltip description (optional)
+    description="Brief description"
 )
 ```
 

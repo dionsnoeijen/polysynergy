@@ -19,8 +19,8 @@ The PolySynergy editor consists of several key areas:
 - **Dock**: The right sidebar, that contains the node variable inspector, and execution output
 - **Bottom Bar**: Contains, logs, info and chat functionality
 - **Editor**: The canvas where the nodes are added and connected
-- **Top left menu** The menu where you can access basic editor interactions
-- **Bottom right menu** The menu where you can access, publishing, documentation and advanced features
+- **Top Left Menu** The menu where you can access basic editor interactions
+- **Bottom Right Menu** The menu where you can access, publishing, documentation and advanced features
 
 ## Basic Navigation
 
