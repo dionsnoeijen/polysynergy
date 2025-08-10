@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "polysynergy_nodes_dev"
+version = "0.1.0"
+description = "Development nodes for PolySynergy - experimental and in-progress nodes"
+authors = ["Dion Snoeijen"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+polysynergy_node_runner = { path = "../node_runner", develop = true }
+pydantic = "^2.10.6"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
