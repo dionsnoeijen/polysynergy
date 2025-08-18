@@ -2,7 +2,7 @@
   <img src="https://www.polysynergy.com/ps-color-logo-with-text.svg" alt="PolySynergy Logo" width="400"/>
 </div>
 
-# PolySynergy Orchestrator
+# PolySynergy
 
 ---
 
@@ -35,14 +35,12 @@ PolySynergy Orchestrator is a **microservices-based visual automation platform**
 
 ### Visual Workflow Editor
 - **Drag & Drop Interface**: Create workflows by connecting nodes visually
-- **Real-time Collaboration**: Multiple users can work on workflows simultaneously
-- **Canvas-based Design**: Intuitive node positioning with zoom and pan capabilities
 - **Live Execution Monitoring**: Watch your workflows execute in real-time
 
 ### AI-Powered Automation
 - **Agent Orchestration**: Integrate OpenAI, Mistral, and other AI providers
-- **Vector Storage**: Context management with Qdrant integration
-- **Memory Management**: Persistent chat memory with DynamoDB backend
+- **Vector Storage**: Context management
+- **Memory Management**: Persistent chat memory
 - **Dynamic Tool Integration**: Automatic tool discovery and execution
 
 ### Enterprise-Grade Infrastructure
@@ -57,24 +55,12 @@ PolySynergy Orchestrator is a **microservices-based visual automation platform**
 - **Control Flow**: Conditional logic, loops, scheduling, and branching
 - **Custom Nodes**: Extensible framework for building your own nodes
 
-## 🏗️ Architecture
-
-PolySynergy follows a modern microservices architecture designed for scalability and maintainability:
-
 ### Core Services
 
-- **Portal** (Next.js): Visual workflow editor with real-time collaboration
+- **Portal** (Next.js): Visual workflow editor
 - **API Local** (FastAPI): Main orchestration engine and workflow management
 - **Router** (FastAPI): Dynamic request routing to Lambda functions
-- **Node Runner**: Python framework for workflow execution
-- **Database Layer**: PostgreSQL for persistence, Redis for caching
-
-### Infrastructure
-
-- **Container Orchestration**: Docker Compose for local development
-- **Example Cloud Architecture**: Terraform configurations for AWS deployment (reference implementation)
-- **Cost Optimization**: Moved away from expensive AWS services to more economical solutions
-- **Flexible Deployment**: Designed to work with various hosting providers and configurations
+- **Node Runner**: Python framework for workflow execution based on routes
 
 ## 📦 Project Structure
 
@@ -87,7 +73,7 @@ orchestrator/
 ├── nodes/               # Core node library
 ├── nodes_agno/          # Additional specialized nodes
 ├── infrastructure/      # Example Terraform AWS infrastructure (not in use)
-├── caddy/              # Reverse proxy configuration
+├── caddy/               # Reverse proxy configuration
 └── docker-compose.yml   # Local development setup
 ```
 
@@ -101,12 +87,11 @@ Each submodule has its own documentation, tests, and development workflow. See i
 - Docker & Docker Compose
 - Node.js 18+ & pnpm
 - Python 3.12+ & Poetry
-- Cloud CLI tools (optional, for cloud deployment)
 
 ### Development Setup
 ```bash
 # Clone the repository
-git clone --recurse-submodules https://github.com/dionsnoeijen/polysynergy-orchestrator.git
+git clone --recurse-submodules https://github.com/dionsnoeijen/polysynergy.git
 cd polysynergy-orchestrator
 
 # Start all services
@@ -136,16 +121,13 @@ docker compose up -d
 
 ### Infrastructure
 - **Docker** containerization
-- **AWS ECS** for container orchestration
-- **Terraform** for infrastructure as code
 - **PostgreSQL** for data persistence
-- **Redis** for caching and sessions
+- **Redis** for streaming and pub/sub
 
 ### AI & Integrations
 - **OpenAI & Mistral** for language models
 - **Qdrant** for vector storage
 - **AWS Services** (Lambda, S3, DynamoDB, Secrets Manager)
-- **PubNub** for real-time messaging
 
 ## 🔧 Development Commands
 
@@ -154,14 +136,6 @@ docker compose up -d
 docker compose up -d        # Start all services
 docker compose down         # Stop all services
 docker compose logs -f      # View logs
-```
-
-### API Development
-```bash
-cd api-local
-poetry install              # Install dependencies
-poetry run pytest          # Run tests
-poetry run uvicorn main:app --reload  # Start dev server
 ```
 
 ### Portal Development
@@ -211,13 +185,14 @@ This project is licensed under the Business Source License 1.1 (BSL 1.1). See th
 
 ## 🌐 Links
 
-- **Website**: [polysynergy.com](https://polysynergy.com)
+- **Website**: [polysynergy.com](https://www.polysynergy.com)
 - **Community**: [Join our Discord](https://discord.gg/H8eQACAhkX)
 
 ## 🚧 Roadmap
 
 - [ ] Make cloud dependencies optional for local development
 - [ ] Enhanced node library with more integrations
+- [ ] Complete Agno AI agent framework integration
 - [ ] Workflow templates and marketplace
 
 ---
