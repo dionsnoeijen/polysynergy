@@ -21,6 +21,13 @@
       "description": "Technical reference documentation",
       "icon": "document-text",
       "order": 3
+    },
+    {
+      "id": "nodes",
+      "title": "Node Documentation",
+      "description": "Documentation for individual nodes",
+      "icon": "puzzle-piece",
+      "order": 4
     }
   ],
   "navigation": [
