@@ -173,3 +173,53 @@ All services deployed on AWS with proper DNS routing:
 - API: `https://api.polysynergy.com` (ECS + ALB)
 - Router: `https://*.polysynergy.com` (ECS + ALB)
 - Database: RDS PostgreSQL (private subnet access only)
+
+# Claude Code Working Pattern
+
+## 🔄 Required Workflow for All Tasks
+
+**CRITICAL**: Claude Code must follow this exact pattern for every significant task or request. This ensures proper verification and prevents incorrect assumptions.
+
+### Phase 1: **Deep Research & Investigation**
+- Thoroughly investigate the issue/request
+- Read all relevant files and understand current architecture  
+- Identify root causes, dependencies, and implications
+- Research best practices and potential pitfalls
+- Use Grep, Read, and other tools extensively to understand context
+- **Output**: "Investigation complete, moving to planning phase"
+- **NO changes made during this phase**
+
+### Phase 2: **Comprehensive Plan Presentation**
+- Present **exactly** what will be done and **why**
+- Show specific files to modify with exact code changes
+- Explain the reasoning behind each change
+- Identify potential risks or side effects  
+- Outline the step-by-step implementation approach
+- **End with**: "Please check if my understanding and plan are correct before I proceed"
+
+### Phase 3: **Verification & Approval**
+- **Wait for explicit user approval** - never assume approval
+- Allow user to review and correct any misunderstandings
+- Only proceed after user confirms the plan is correct
+- If plan needs changes, return to Phase 2
+
+### Phase 4: **Careful Implementation**
+- Follow the approved plan exactly
+- Make changes systematically as outlined
+- Track progress with TodoWrite when appropriate
+- No surprises or deviations from the approved plan
+
+## 🔄 Key Principles:
+- **No assumptions** - always verify understanding with the user
+- **Be explicit** - show exact code changes, not vague descriptions  
+- **Ask for confirmation** - "Am I understanding this correctly?"
+- **Comprehensive reasoning** - explain the why behind every change
+- **Wait for approval** - never implement without explicit user confirmation
+
+## 🚫 What NOT to Do:
+- Jump directly to making changes
+- Make assumptions about what the user wants
+- Implement "obvious" solutions without verification
+- Skip the planning phase for any significant change
+
+This pattern ensures quality, prevents rework, and builds user confidence in the solutions provided.

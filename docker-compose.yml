@@ -38,6 +38,7 @@ services:
       - internal
     environment:
       - PROJECT_DB=/sqlite_data/polysynergy.db
+      - RELOAD_DIRS=--reload-dir /app --reload-dir /nodes --reload-dir /node_runner --reload-dir /nodes_agno --reload-dir /nodes_dev
     depends_on:
       - db
       - redis
