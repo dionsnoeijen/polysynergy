@@ -43,19 +43,17 @@ services:
         delay: 5s
         max_attempts: 3
 
+  
   redis:
     image: redis:8
+    ports:
+      - "6379:6379"  # Publiek bereikbaar MET wachtwoord
     volumes:
       - redis_data:/data
-    command: ["redis-server", "--appendonly", "yes"]
+      - /opt/polysynergy-orchestrator/redis/redis.prod.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     networks:
       - internal
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
 
   api_local:
     image: polysynergy-api:latest
@@ -69,11 +67,11 @@ services:
       - postgres_password
       - agno_postgres_password
     volumes:
-      - /opt/polysynergy/api-local:/app
-      - /opt/polysynergy/documentation:/documentation
-      - /opt/polysynergy/nodes:/nodes
-      - /opt/polysynergy/node_runner:/node_runner
-      - /opt/polysynergy/nodes_agno:/nodes_agno
+      - /opt/polysynergy-orchestrator/api-local:/app
+      - /opt/polysynergy-orchestrator/documentation:/documentation
+      - /opt/polysynergy-orchestrator/nodes:/nodes
+      - /opt/polysynergy-orchestrator/node_runner:/node_runner
+      - /opt/polysynergy-orchestrator/nodes_agno:/nodes_agno
       - api_data:/sqlite_data
     networks:
       - internal
@@ -101,7 +99,7 @@ services:
     environment:
       ROUTER_ENV: production
     volumes:
-      - /opt/polysynergy/router:/app
+      - /opt/polysynergy-orchestrator/router:/app
     networks:
       - internal
     deploy:
@@ -122,13 +120,10 @@ services:
       - "443:443"
     environment:
       AWS_REGION: eu-central-1
-      AWS_ACCESS_KEY_ID_FILE: /run/secrets/aws_access_key_id
-      AWS_SECRET_ACCESS_KEY_FILE: /run/secrets/aws_secret_access_key
-    secrets:
-      - aws_access_key_id
-      - aws_secret_access_key
+    env_file:
+      - /opt/polysynergy-orchestrator/.env.prod
     volumes:
-      - /opt/polysynergy/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /opt/polysynergy-orchestrator/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
     networks:
