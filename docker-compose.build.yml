@@ -7,11 +7,6 @@ services:
       dockerfile: ./api-local/Dockerfile
     image: polysynergy-api:latest
 
-  portal:
-    build:
-      context: ./portal
-      dockerfile: Dockerfile
-    image: polysynergy-portal:latest
 
   router:
     build:

@@ -93,28 +93,6 @@ services:
       timeout: 3s
       retries: 3
 
-  portal:
-    image: polysynergy-portal:latest
-    ports:
-      - "4000:4000"
-    environment:
-      NODE_ENV: production
-      PORT: 4000
-      NEXT_PUBLIC_POLYSYNERGY_API_URL: "https://api.polysynergy.com/api/v1"
-    volumes:
-      - /opt/polysynergy/portal:/app
-    networks:
-      - internal
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: start-first
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
 
   router:
     image: polysynergy-router:latest
