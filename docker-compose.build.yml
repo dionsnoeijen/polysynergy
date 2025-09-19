@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api_local:
+    build:
+      context: .
+      dockerfile: ./api-local/Dockerfile
+    image: polysynergy-api:latest
+
+
+  router:
+    build:
+      context: ./router
+    image: polysynergy-router:latest
+
+  caddy:
+    build:
+      context: ./caddy
+    image: polysynergy-caddy:latest

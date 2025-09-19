@@ -1,0 +1,28 @@
+# PolySynergy Local Development Caddyfile
+# This configures Caddy for local development with *.polysynergy.dev domains
+
+# Portal - Main frontend
+portal.polysynergy.dev {
+    reverse_proxy portal:4000
+}
+
+# API - Backend API with WebSocket support
+api.polysynergy.dev {
+    reverse_proxy api_local:8090
+}
+
+# Router - Dynamic project routing for all other subdomains
+*.polysynergy.dev {
+    # Skip portal and api subdomains (they're handled above)
+    @not_portal_or_api not host portal.polysynergy.dev api.polysynergy.dev
+    
+    reverse_proxy @not_portal_or_api router:8080 {
+        # Pass the original host header for subdomain parsing
+        header_up Host {host}
+    }
+}
+
+# Root domain redirect
+polysynergy.dev {
+    redir https://portal.polysynergy.dev{uri}
+}

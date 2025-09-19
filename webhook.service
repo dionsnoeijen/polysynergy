@@ -1,0 +1,21 @@
+[Unit]
+Description=Polysynergy Webhook Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/polysynergy
+ExecStart=/usr/bin/python3 /opt/polysynergy/webhook-server.py
+Restart=always
+RestartSec=10
+Environment=WEBHOOK_SECRET=your-webhook-secret-here
+Environment=WEBHOOK_PORT=9000
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=webhook
+
+[Install]
+WantedBy=multi-user.target

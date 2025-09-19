@@ -1,0 +1,183 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: polysynergy_db
+      POSTGRES_USER: polysynergy_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+  agno_session_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: agno_session_db
+      POSTGRES_USER: agno_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/agno_postgres_password
+    secrets:
+      - agno_postgres_password
+    volumes:
+      - agno_db_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+  redis:
+    image: redis:8
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    networks:
+      - internal
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+  api_local:
+    image: polysynergy-api:latest
+    ports:
+      - "8090:8090"
+    environment:
+      PROJECT_DB: /sqlite_data/polysynergy.db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      AGNO_POSTGRES_PASSWORD_FILE: /run/secrets/agno_postgres_password
+    secrets:
+      - postgres_password
+      - agno_postgres_password
+    volumes:
+      - /opt/polysynergy/api-local:/app
+      - /opt/polysynergy/documentation:/documentation
+      - /opt/polysynergy/nodes:/nodes
+      - /opt/polysynergy/node_runner:/node_runner
+      - /opt/polysynergy/nodes_agno:/nodes_agno
+      - api_data:/sqlite_data
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+
+  router:
+    image: polysynergy-router:latest
+    ports:
+      - "8080:8080"
+    environment:
+      ROUTER_ENV: production
+    volumes:
+      - /opt/polysynergy/router:/app
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+  caddy:
+    image: polysynergy-caddy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      AWS_REGION: eu-central-1
+      AWS_ACCESS_KEY_ID_FILE: /run/secrets/aws_access_key_id
+      AWS_SECRET_ACCESS_KEY_FILE: /run/secrets/aws_secret_access_key
+    secrets:
+      - aws_access_key_id
+      - aws_secret_access_key
+    volumes:
+      - /opt/polysynergy/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - internal
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+volumes:
+  db_data:
+    driver: local
+  agno_db_data:
+    driver: local
+  redis_data:
+    driver: local
+  api_data:
+    driver: local
+  nodes_data:
+    driver: local
+  node_runner_data:
+    driver: local
+  nodes_agno_data:
+    driver: local
+  caddy_data:
+    driver: local
+  caddy_config:
+    driver: local
+
+networks:
+  internal:
+    driver: overlay
+    attachable: true
+
+secrets:
+  postgres_password:
+    external: true
+  agno_postgres_password:
+    external: true
+  redis_password:
+    external: true
+  router_config:
+    external: true
+  aws_access_key_id:
+    external: true
+  aws_secret_access_key:
+    external: true

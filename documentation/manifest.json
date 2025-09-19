@@ -21,6 +21,13 @@
       "description": "Technical reference documentation",
       "icon": "document-text",
       "order": 3
+    },
+    {
+      "id": "nodes",
+      "title": "Node Documentation",
+      "description": "Documentation for individual nodes",
+      "icon": "puzzle-piece",
+      "order": 4
     }
   ],
   "navigation": [
@@ -92,28 +99,22 @@
       "category": "reference",
       "items": [
         {
-          "id": "node-development",
-          "title": "Developing Custom Nodes",
-          "file": "node-development.md",
+          "id": "node-anatomy",
+          "title": "Node Anatomy",
+          "file": "node-anatomy.md",
           "order": 1
         },
         {
-          "id": "api-reference",
-          "title": "API Reference",
-          "file": "api-reference.md",
+          "id": "node-development",
+          "title": "Developing Custom Nodes",
+          "file": "node-development.md",
           "order": 2
-        },
-        {
-          "id": "configuration",
-          "title": "Configuration",
-          "file": "configuration.md",
-          "order": 3
         },
         {
           "id": "troubleshooting",
           "title": "Troubleshooting",
           "file": "troubleshooting.md",
-          "order": 4
+          "order": 3
         }
       ]
     }

@@ -1,7 +1,7 @@
 ---
 title: "Troubleshooting"
 category: "reference"
-order: 4
+order: 3
 tags: ["troubleshooting", "debugging", "support"]
 description: "Common issues and solutions for PolySynergy Orchestrator"
 last_updated: "2025-01-07"
@@ -9,7 +9,7 @@ last_updated: "2025-01-07"
 
 # Troubleshooting
 
-This guide covers common issues you might encounter while using PolySynergy Orchestrator and their solutions.
+This guide covers common issues you might encounter while using PolySynergy.
 
 ## Workflow Execution Issues
 

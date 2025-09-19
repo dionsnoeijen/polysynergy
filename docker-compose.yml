@@ -12,6 +12,19 @@ services:
     networks:
       - internal
 
+  agno_session_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: agno_session_db
+      POSTGRES_USER: agno_user
+      POSTGRES_PASSWORD: agno_password
+    volumes:
+      - ./agno_session_db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - internal
+
   redis:
     image: redis:8
     ports:
@@ -25,16 +38,20 @@ services:
       dockerfile: ./api-local/Dockerfile
     ports:
       - "8090:8090"
+    env_file:
+      - ./api-local/.env
     volumes:
       - ./api-local:/app
       - ./documentation:/documentation
       - ./nodes:/nodes
       - ./node_runner:/node_runner
       - ./nodes_agno:/nodes_agno
+      - ./nodes_dev:/nodes_dev
     networks:
       - internal
     environment:
       - PROJECT_DB=/sqlite_data/polysynergy.db
+      - RELOAD_DIRS=--reload-dir /app --reload-dir /nodes --reload-dir /node_runner --reload-dir /nodes_agno --reload-dir /nodes_dev
     depends_on:
       - db
       - redis
