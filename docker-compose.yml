@@ -12,6 +12,19 @@ services:
     networks:
       - internal
 
+  agno_session_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: agno_session_db
+      POSTGRES_USER: agno_user
+      POSTGRES_PASSWORD: agno_password
+    volumes:
+      - ./agno_session_db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - internal
+
   redis:
     image: redis:8
     ports:
