@@ -27,11 +27,7 @@ jobs:
         script: |
           cd /opt/polysynergy-orchestrator
 
-          # Pull latest code
-          git pull origin main
-          git submodule update --init --recursive --remote
-
-          # Deploy based on service parameter
+          # Deploy based on service parameter (script doet zelf git pull)
           if [ "${{ github.event.inputs.service }}" == "api" ]; then
             ./deploy-swarm.sh update api
           elif [ "${{ github.event.inputs.service }}" == "router" ]; then

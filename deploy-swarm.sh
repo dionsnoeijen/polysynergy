@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 STACK_NAME="polysynergy"
-DEPLOY_DIR="/opt/polysynergy"
+DEPLOY_DIR="/opt/polysynergy-orchestrator"
 ENVIRONMENT="production"
 
 # Colors for output
