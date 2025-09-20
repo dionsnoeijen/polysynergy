@@ -1,6 +1,6 @@
-name: Trigger Deployment
+name: Deploy to Production
 
-# Trigger webhook on push to main branch
+# Trigger deployment on push to main branch
 on:
   push:
     branches:
@@ -14,21 +14,31 @@ on:
         default: 'all'
 
 jobs:
-  trigger-deployment:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Trigger Webhook
-      run: |
-        curl -X POST \
-          -H "Content-Type: application/json" \
-          -H "X-GitHub-Event: push" \
-          -H "X-Hub-Signature-256: sha256=$(echo -n '${{ toJson(github) }}' | openssl dgst -sha256 -hmac '${{ secrets.WEBHOOK_SECRET }}' -binary | xxd -p)" \
-          -d '${{ toJson(github) }}' \
-          ${{ secrets.WEBHOOK_URL }}/webhook
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /opt/polysynergy-orchestrator
 
-    - name: Check Deployment Status
-      run: |
-        echo "Webhook triggered successfully"
-        echo "Check your server logs for deployment progress"
-        echo "Health check: curl ${{ secrets.WEBHOOK_URL }}/health"
+          # Pull latest code
+          git pull origin main
+          git submodule update --init --recursive --remote
+
+          # Deploy based on service parameter
+          if [ "${{ github.event.inputs.service }}" == "api" ]; then
+            ./deploy-swarm.sh update api
+          elif [ "${{ github.event.inputs.service }}" == "router" ]; then
+            ./deploy-swarm.sh update router
+          else
+            ./deploy-swarm.sh deploy
+          fi
+
+          # Check status
+          docker stack services polysynergy
