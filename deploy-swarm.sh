@@ -96,8 +96,8 @@ build_local_images() {
     echo_info "Building images locally..."
     cd $DEPLOY_DIR
 
-    # Build all images using docker-compose
-    docker-compose -f docker-compose.build.yml build
+    # Build all images using docker-compose (no cache to ensure fresh builds)
+    docker-compose -f docker-compose.build.yml build --no-cache
 
     echo_info "All images built successfully"
 }
