@@ -97,7 +97,7 @@ build_local_images() {
     cd $DEPLOY_DIR
 
     # Build all images using docker-compose (no cache to ensure fresh builds)
-    docker-compose -f docker-compose.build.yml build --no-cache
+    docker compose -f docker-compose.build.yml build --no-cache
 
     echo_info "All images built successfully"
 }
@@ -129,19 +129,19 @@ update_service() {
     # First build the new image
     case $SERVICE in
         api|api_local)
-            docker-compose -f docker-compose.build.yml build api_local
+            docker compose -f docker-compose.build.yml build api_local
             docker service update --force ${STACK_NAME}_api_local
             ;;
         portal)
-            docker-compose -f docker-compose.build.yml build portal
+            docker compose -f docker-compose.build.yml build portal
             docker service update --force ${STACK_NAME}_portal
             ;;
         router)
-            docker-compose -f docker-compose.build.yml build router
+            docker compose -f docker-compose.build.yml build router
             docker service update --force ${STACK_NAME}_router
             ;;
         caddy)
-            docker-compose -f docker-compose.build.yml build caddy
+            docker compose -f docker-compose.build.yml build caddy
             docker service update --force ${STACK_NAME}_caddy
             ;;
         *)
