@@ -110,6 +110,10 @@ deploy_stack() {
     docker stack deploy -c docker-stack.yml $STACK_NAME
 
     echo_info "Stack deployed successfully"
+    echo_info "Forcing API restart to reload dependencies..."
+    sleep 5
+    docker service update --force polysynergy_api_local
+
     echo_info "Checking services..."
     sleep 5
     docker stack services $STACK_NAME
@@ -131,6 +135,7 @@ update_service() {
         api|api_local)
             docker compose -f docker-compose.build.yml build api_local
             docker service update --force ${STACK_NAME}_api_local
+            echo_info "API updated - dependencies refreshed automatically"
             ;;
         portal)
             docker compose -f docker-compose.build.yml build portal
