@@ -17,6 +17,13 @@ router.polysynergy.com {
     reverse_proxy router:8080
 }
 
+agno-db.polysynergy.com {
+    tls {
+        dns route53
+    }
+    reverse_proxy agno_session_db:5432
+}
+
 *.polysynergy.com {
     tls {
         dns route53
