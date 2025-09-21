@@ -16,3 +16,6 @@
 [submodule "nodes_dev"]
 	path = nodes_dev
 	url = git@github.com:dionsnoeijen/polysynergy-nodes-dev.git
+[submodule "portal"]
+	path = portal
+	url = https://github.com/dionsnoeijen/polysynergy-portal.git
