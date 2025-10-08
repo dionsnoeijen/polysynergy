@@ -43,6 +43,7 @@ services:
     volumes:
       - ./api-local:/app
       - ./documentation:/documentation
+      - ./updates:/updates
       - ./nodes:/nodes
       - ./node_runner:/node_runner
       - ./nodes_agno:/nodes_agno

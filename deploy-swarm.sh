@@ -102,6 +102,53 @@ build_local_images() {
     echo_info "All images built successfully"
 }
 
+# Run database migrations
+run_migrations() {
+    echo_info "Running database migrations..."
+
+    # Wait for database to be ready
+    echo_info "Waiting for database to be ready..."
+    for i in {1..30}; do
+        DB_CONTAINER=$(docker ps -qf name=${STACK_NAME}_db)
+        if [ -n "$DB_CONTAINER" ]; then
+            if docker exec $DB_CONTAINER pg_isready -U polysynergy_user > /dev/null 2>&1; then
+                echo_info "Database is ready"
+                break
+            fi
+        fi
+        echo "Waiting for database... ($i/30)"
+        sleep 2
+    done
+
+    # Check if we have a production env file
+    ENV_FILE="${DEPLOY_DIR}/api-local/.env.prod"
+    if [ ! -f "$ENV_FILE" ]; then
+        echo_warn "No .env.prod file found at $ENV_FILE"
+        echo_warn "Using default .env file instead"
+        ENV_FILE="${DEPLOY_DIR}/api-local/.env"
+    fi
+
+    # Run migrations in a temporary container connected to the stack network
+    echo_info "Executing migrations..."
+    docker run --rm \
+        --network ${STACK_NAME}_internal \
+        -v ${DEPLOY_DIR}/api-local:/app \
+        -v ${DEPLOY_DIR}/nodes:/nodes \
+        -v ${DEPLOY_DIR}/node_runner:/node_runner \
+        -v ${DEPLOY_DIR}/nodes_agno:/nodes_agno \
+        -w /app \
+        --env-file $ENV_FILE \
+        polysynergy-api:latest \
+        poetry run alembic upgrade head
+
+    if [ $? -eq 0 ]; then
+        echo_info "Migrations completed successfully"
+    else
+        echo_error "Migrations failed - check the error above"
+        return 1
+    fi
+}
+
 # Deploy or update the stack
 deploy_stack() {
     echo_info "Deploying stack: $STACK_NAME"
@@ -110,6 +157,10 @@ deploy_stack() {
     docker stack deploy -c docker-stack.yml $STACK_NAME
 
     echo_info "Stack deployed successfully"
+
+    # Run database migrations before starting API services
+    run_migrations
+
     echo_info "Forcing API restart to reload dependencies..."
     sleep 5
     docker service update --force polysynergy_api_local
@@ -134,6 +185,8 @@ update_service() {
     case $SERVICE in
         api|api_local)
             docker compose -f docker-compose.build.yml build api_local
+            # Run migrations before updating the service
+            run_migrations
             docker service update --force ${STACK_NAME}_api_local
             echo_info "API updated - dependencies refreshed automatically"
             ;;

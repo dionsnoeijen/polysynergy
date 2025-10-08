@@ -5,3 +5,4 @@
 .env.prod
 /lambda_runner
 /agno_session_db_data
+/testimages
