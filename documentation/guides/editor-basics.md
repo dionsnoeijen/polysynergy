@@ -4,7 +4,7 @@ category: "guides"
 order: 2
 tags: ["editor", "basics", "interface", "beginner"]
 description: "Learn the fundamental operations in the PolySynergy visual editor"
-last_updated: "2025-01-07"
+last_updated: "2025-10-08"
 ---
 
 # Editor Basics
@@ -15,9 +15,9 @@ This guide covers the fundamental operations you need to know to work effectivel
 
 The PolySynergy editor consists of several key areas:
 
-- **Item Manager**: The bar on the left, that contains the routes, schedules, blueprints, services, secrets and variables you have created
+- **Item Manager**: The bar on the left, that contains the routes, schedules, blueprints, chat windows, services, secrets and variables you have created
 - **Dock**: The right sidebar, that contains the node variable inspector, and execution output
-- **Bottom Bar**: Contains, logs, info and chat functionality
+- **Bottom Bar**: Contains, logs, info, chat functionality and a file manager
 - **Editor**: The canvas where the nodes are added and connected
 - **Top Left Menu** The menu where you can access basic editor interactions
 - **Bottom Right Menu** The menu where you can access, publishing, documentation and advanced features

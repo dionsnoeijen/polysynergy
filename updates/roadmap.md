@@ -29,6 +29,7 @@ This roadmap outlines planned features and improvements for PolySynergy Studio.
 - **Planned**
 - Remove dependencies on cloud services for fully local deployment
 - Local storage options for configurations and state
+- Make sure routes can be accessed in a local environment
 
 ### Workflow Blueprints
 - **Planned**

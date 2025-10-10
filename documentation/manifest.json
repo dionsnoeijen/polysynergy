@@ -5,22 +5,19 @@
       "id": "guides",
       "title": "Guides",
       "description": "Step-by-step guides for using PolySynergy Orchestrator",
-      "icon": "book-open",
-      "order": 1
+      "icon": "book-open"
     },
     {
       "id": "tutorials",
       "title": "Tutorials",
       "description": "Hands-on tutorials to build real workflows",
-      "icon": "academic-cap",
-      "order": 2
+      "icon": "academic-cap"
     },
     {
       "id": "reference",
       "title": "Reference",
       "description": "Technical reference documentation",
-      "icon": "document-text",
-      "order": 3
+      "icon": "document-text"
     }
   ],
   "navigation": [
@@ -30,38 +27,17 @@
         {
           "id": "getting-started",
           "title": "Getting Started",
-          "file": "getting-started.md",
-          "order": 1
+          "file": "getting-started.md"
         },
         {
           "id": "editor-basics",
           "title": "Editor Basics",
-          "file": "editor-basics.md",
-          "order": 2
-        },
-        {
-          "id": "creating-workflows",
-          "title": "Creating Workflows",
-          "file": "creating-workflows.md",
-          "order": 3
+          "file": "editor-basics.md"
         },
         {
           "id": "working-with-nodes",
           "title": "Working with Nodes",
-          "file": "working-with-nodes.md",
-          "order": 4
-        },
-        {
-          "id": "variables-and-connections",
-          "title": "Variables and Connections",
-          "file": "variables-and-connections.md",
-          "order": 5
-        },
-        {
-          "id": "publishing-and-deployment",
-          "title": "Publishing and Deployment",
-          "file": "publishing-and-deployment.md",
-          "order": 6
+          "file": "working-with-nodes.md"
         }
       ]
     },
@@ -69,22 +45,64 @@
       "category": "tutorials",
       "items": [
         {
-          "id": "first-workflow",
-          "title": "Your First Workflow",
-          "file": "first-workflow.md",
-          "order": 1
+          "id": "flow-basics",
+          "title": "Understand the basics of a Flow",
+          "file": "flow-basics.md"
         },
         {
-          "id": "api-automation",
-          "title": "Building an API Automation",
-          "file": "api-automation.md",
-          "order": 2
+          "id": "grouping-basics",
+          "title": "Understand the basics of a Grouping",
+          "file": "grouping-basics.md"
         },
         {
-          "id": "data-processing-pipeline",
-          "title": "Data Processing Pipeline",
-          "file": "data-processing-pipeline.md",
-          "order": 3
+          "id": "agent-basics",
+          "title": "Create An Basic Agent",
+          "file": "agent-basics.md"
+        },
+        {
+          "id": "rag-basics",
+          "title": "Create A Basic RAG Setup",
+          "file": "rag-basics.md"
+        },
+        {
+          "id": "agent-tool-basics",
+          "title": "Have an agent use tools",
+          "file": "agent-tool-basics.md"
+        },
+        {
+          "id": "creating-a-route",
+          "title": "Create A Route",
+          "file": "creating-a-route.md"
+        },
+        {
+          "id": "creating-a-schedule",
+          "title": "Create A Schedule",
+          "file": "creating-a-schedule.md"
+        },
+        {
+          "id": "creating-a-chat-window",
+          "title": "Create A Chat Window",
+          "file": "creating-a-chat-window.md"
+        },
+        {
+          "id": "creating-a-blueprint",
+          "title": "Create A Blueprint",
+          "file": "creating-a-blueprint.md"
+        },
+        {
+          "id": "creating-a-service",
+          "title": "Create A Service",
+          "file": "creating-a-service.md"
+        },
+        {
+          "id": "creating-a-secret",
+          "title": "Create A Secret",
+          "file": "creating-a-secret.md"
+        },
+        {
+          "id": "creating-a-environment-variable",
+          "title": "Create A Environment Variable",
+          "file": "creating-a-environment-variable.md"
         }
       ]
     },
@@ -94,20 +112,17 @@
         {
           "id": "node-anatomy",
           "title": "Node Anatomy",
-          "file": "node-anatomy.md",
-          "order": 1
+          "file": "node-anatomy.md"
         },
         {
           "id": "node-development",
           "title": "Developing Custom Nodes",
-          "file": "node-development.md",
-          "order": 2
+          "file": "node-development.md"
         },
         {
           "id": "troubleshooting",
           "title": "Troubleshooting",
-          "file": "troubleshooting.md",
-          "order": 3
+          "file": "troubleshooting.md"
         }
       ]
     }
