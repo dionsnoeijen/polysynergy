@@ -52,10 +52,12 @@ services:
     image: redis:8
     ports:
       - "6379:6379"  # Publiek bereikbaar MET wachtwoord
+    secrets:
+      - redis_password
     volumes:
       - redis_data:/data
-      - /opt/polysynergy-orchestrator/redis/redis.prod.conf:/usr/local/etc/redis/redis.conf
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+      - /opt/polysynergy-orchestrator/redis/entrypoint.sh:/entrypoint.sh:ro
+    command: ["sh", "/entrypoint.sh"]
     networks:
       - internal
 
@@ -70,6 +72,7 @@ services:
     secrets:
       - postgres_password
       - agno_postgres_password
+      - redis_password
     volumes:
       - /opt/polysynergy-orchestrator/api-local:/app
       - /opt/polysynergy-orchestrator/documentation:/documentation
