@@ -97,7 +97,10 @@ build_local_images() {
     cd $DEPLOY_DIR
 
     # Build all images using docker-compose (no cache to ensure fresh builds)
-    docker compose -f docker-compose.build.yml build --no-cache
+    if ! docker compose -f docker-compose.build.yml build --no-cache; then
+        echo_error "Docker build failed! Aborting deployment."
+        exit 1
+    fi
 
     echo_info "All images built successfully"
 }
@@ -184,22 +187,34 @@ update_service() {
     # First build the new image
     case $SERVICE in
         api|api_local)
-            docker compose -f docker-compose.build.yml build api_local
+            if ! docker compose -f docker-compose.build.yml build api_local; then
+                echo_error "API build failed! Aborting deployment."
+                exit 1
+            fi
             # Run migrations before updating the service
             run_migrations
             docker service update --force ${STACK_NAME}_api_local
             echo_info "API updated - dependencies refreshed automatically"
             ;;
         portal)
-            docker compose -f docker-compose.build.yml build portal
+            if ! docker compose -f docker-compose.build.yml build portal; then
+                echo_error "Portal build failed! Aborting deployment."
+                exit 1
+            fi
             docker service update --force ${STACK_NAME}_portal
             ;;
         router)
-            docker compose -f docker-compose.build.yml build router
+            if ! docker compose -f docker-compose.build.yml build router; then
+                echo_error "Router build failed! Aborting deployment."
+                exit 1
+            fi
             docker service update --force ${STACK_NAME}_router
             ;;
         caddy)
-            docker compose -f docker-compose.build.yml build caddy
+            if ! docker compose -f docker-compose.build.yml build caddy; then
+                echo_error "Caddy build failed! Aborting deployment."
+                exit 1
+            fi
             docker service update --force ${STACK_NAME}_caddy
             ;;
         *)
