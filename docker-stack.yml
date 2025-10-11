@@ -71,6 +71,7 @@ services:
     volumes:
       - /opt/polysynergy-orchestrator/api-local:/app
       - /opt/polysynergy-orchestrator/documentation:/documentation
+      - /opt/polysynergy-orchestrator/updates:/updates
       - /opt/polysynergy-orchestrator/nodes:/nodes
       - /opt/polysynergy-orchestrator/node_runner:/node_runner
       - /opt/polysynergy-orchestrator/nodes_agno:/nodes_agno
