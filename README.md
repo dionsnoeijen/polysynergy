@@ -1,202 +1,152 @@
 <div align="center">
   <img src="https://www.polysynergy.com/ps-color-logo-with-text.svg" alt="PolySynergy Logo" width="400"/>
+
+  <h3>Open-source visual AI workflow builder for developers who need transparency and control</h3>
+
+  <p>
+    <a href="https://www.polysynergy.com">Website</a> •
+    <a href="https://discord.gg/H8eQACAhkX">Discord</a> •
+    <a href="https://www.polysynergy.com/ams">Documentation</a>
+  </p>
+
+  <img src="images/image-b.png" alt="PolySynergy Visual Editor" style="max-width: 100%; border-radius: 8px;"/>
 </div>
 
-# PolySynergy
+## What is PolySynergy?
 
----
+PolySynergy is a **visual workflow builder** that lets you orchestrate AI agents and integrations through a drag-and-drop interface. Unlike black-box automation tools, every step is visible, debuggable, and under your control.
 
-## 🚧 Work in Progress
+**See every step. Debug like actual code. No more black box guessing games.**
 
-**This project is currently under active development and is not yet ready for local installation and setup.** Work is in progress to make AWS cloud dependencies optional to enable easier local development and testing. Please check back soon for updates.
+Perfect for developers building AI applications who need:
+- **Multi-agent orchestration** with full visibility into decision-making
+- **Flexible AI provider** support (OpenAI, Anthropic, Mistral, Ollama)
+- **Real-time execution** monitoring and debugging
+- **Complete control** over data flow and logic
 
-### 🔗 Submodule Repositories
+> **Status:** Currently in **alpha** - actively developed and used in production by early adopters. Expect breaking changes.
 
-The following components are maintained as separate repositories and included as git submodules:
+## 🚧 Local Development Setup (In Progress)
 
-- **[Portal](https://github.com/dionsnoeijen/polysynergy-portal)** - Next.js visual workflow editor
-- **[API Local](https://github.com/dionsnoeijen/polysynergy-api-local)** - FastAPI orchestration backend
-- **[Router](https://github.com/dionsnoeijen/polysynergy-router)** - Dynamic request routing service
-- **[Node Runner](https://github.com/dionsnoeijen/polysynergy-node-runner)** - Python workflow execution framework
-- **[Nodes](https://github.com/dionsnoeijen/polysynergy-nodes)** - Core node library with AI agents and integrations
-- **[Nodes Agno](https://github.com/dionsnoeijen/polysynergy-nodes-agno)** - Additional specialized nodes
+**Important:** The local development setup is currently being refactored to remove AWS cloud dependencies. The platform runs in production but local `docker compose` setup is not yet fully functional.
 
----
+**Current status:**
+- ✅ Production deployment works (see [polysynergy.com](https://www.polysynergy.com))
+- 🚧 Local development environment being decoupled from AWS
+- 📅 Estimated availability: Q1 2026
 
-## Overview
+**Want to try it now?** Join our [Discord](https://discord.gg/H8eQACAhkX) for early access or custom deployment support.
 
-PolySynergy Orchestrator is a **microservices-based visual automation platform** that enables users to create, manage, and execute node-based workflows through an intuitive drag-and-drop interface. Build complex automation pipelines with AI agents, integrations, and custom logic - all through a visual canvas.
+### Quick Start (Once Available)
 
-<div align="center">
-  <img src="images/image-a.png" alt="PolySynergy Visual Editor" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"/>
-</div>
-
-## 🌟 Key Features
-
-### Visual Workflow Editor
-- **Drag & Drop Interface**: Create workflows by connecting nodes visually
-- **Live Execution Monitoring**: Watch your workflows execute in real-time
-
-### AI-Powered Automation
-- **Agent Orchestration**: Integrate OpenAI, Mistral, and other AI providers
-- **Vector Storage**: Context management
-- **Memory Management**: Persistent chat memory
-- **Dynamic Tool Integration**: Automatic tool discovery and execution
-
-### Enterprise-Grade Infrastructure
-- **Scalable Architecture**: Microservices design with Docker containerization
-- **Cloud Agnostic**: Flexible deployment options across different providers
-- **Security First**: OIDC authentication, role-based access, encrypted secrets
-- **Cost Effective**: Optimized for performance without excessive cloud costs
-
-### Extensive Node Library
-- **Utility Nodes**: Math operations, data transformation, file handling
-- **Integration Nodes**: HTTP requests, database operations, email services
-- **Control Flow**: Conditional logic, loops, scheduling, and branching
-- **Custom Nodes**: Extensible framework for building your own nodes
-
-### Core Services
-
-- **Portal** (Next.js): Visual workflow editor
-- **API Local** (FastAPI): Main orchestration engine and workflow management
-- **Router** (FastAPI): Dynamic request routing to Lambda functions
-- **Node Runner**: Python framework for workflow execution based on routes
-
-## 📦 Project Structure
-
-```
-orchestrator/
-├── portal/              # Next.js frontend application
-├── api-local/           # FastAPI backend service
-├── router/              # Request routing service
-├── node_runner/         # Node execution framework
-├── nodes/               # Core node library
-├── nodes_agno/          # Additional specialized nodes
-├── infrastructure/      # Example Terraform AWS infrastructure (not in use)
-├── caddy/               # Reverse proxy configuration
-└── docker-compose.yml   # Local development setup
-```
-
-Each submodule has its own documentation, tests, and development workflow. See individual repositories for component-specific details.
-
-## 🚀 Quick Start (Coming Soon)
-
-> **Note**: Local setup instructions will be available once AWS dependencies are made optional.
-
-### Prerequisites
-- Docker & Docker Compose
-- Node.js 18+ & pnpm
-- Python 3.12+ & Poetry
-
-### Development Setup
 ```bash
-# Clone the repository
+# Clone with submodules
 git clone --recurse-submodules https://github.com/dionsnoeijen/polysynergy.git
-cd polysynergy-orchestrator
+cd polysynergy/orchestrator
 
 # Start all services
 docker compose up -d
 
-# Access the application
-# Portal: http://localhost:4000
-# API: http://localhost:8090
-# Router: http://localhost:8080
+# Access the platform
+# Portal:  http://localhost:4000
+# API:     http://localhost:8090/docs
+# Router:  http://localhost:8080
 ```
 
-## 🛠️ Technology Stack
+**Requirements:** Docker, Docker Compose
 
-### Frontend
-- **Next.js 15.3.0** with React 19 and TypeScript
-- **Tailwind CSS** for styling
-- **Zustand** for state management
-- **Konva.js** for canvas interactions
-- **WebSocket** for real-time updates
+## Key Features
 
-### Backend
-- **FastAPI** with async/await support
-- **SQLAlchemy 2.0** with PostgreSQL
-- **Redis** for caching and real-time features
-- **Alembic** for database migrations
-- **Poetry** for dependency management
+### 🎨 Visual Workflow Editor
+Drag-and-drop interface with **40+ node types** including:
+- AI agents (OpenAI, Anthropic, Mistral, Ollama)
+- Data processing (JSON, lists, strings, files)
+- Integrations (HTTP, email, AWS, databases)
+- Control flow (conditionals, loops, routing)
+- Custom nodes (extensible Python framework)
 
-### Infrastructure
-- **Docker** containerization
-- **PostgreSQL** for data persistence
-- **Redis** for streaming and pub/sub
+### 🔍 Transparency & Debugging
+- Real-time execution monitoring via WebSocket
+- Step-by-step workflow visualization
+- Detailed logging and error tracking
+- Full control over AI context and prompts
 
-### AI & Integrations
-- **OpenAI & Mistral** for language models
-- **Qdrant** for vector storage
-- **AWS Services** (Lambda, S3, DynamoDB, Secrets Manager)
+### 🚀 Production-Ready Architecture
+- **Microservices** design with Docker
+- **Serverless** deployment via AWS Lambda (optional)
+- **Scalable** PostgreSQL + Redis stack
+- **Secure** with OIDC authentication
 
-## 🔧 Development Commands
+### 🔧 Developer-First
+- Python-based node development
+- REST API for programmatic access
+- WebSocket for real-time updates
+- Comprehensive test coverage
 
-### Docker Operations
-```bash
-docker compose up -d        # Start all services
-docker compose down         # Stop all services
-docker compose logs -f      # View logs
+## Technology Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS, Konva.js |
+| **Backend** | FastAPI, SQLAlchemy 2.0, PostgreSQL, Redis |
+| **Execution** | Python 3.12, Poetry, AWS Lambda (optional) |
+| **AI/ML** | OpenAI, Anthropic, Mistral, Ollama, Qdrant (vector DB) |
+
+## Project Structure
+
+```
+orchestrator/
+├── portal/         # Next.js visual workflow editor
+├── api-local/      # FastAPI orchestration backend
+├── router/         # Dynamic request routing service
+├── node_runner/    # Python workflow execution framework
+├── nodes/          # Core node library (40+ types)
+└── nodes_agno/     # Advanced AI agent nodes
 ```
 
-### Portal Development
-```bash
-cd portal
-pnpm install               # Install dependencies
-pnpm dev                   # Start dev server
-pnpm build                 # Build for production
-```
+Each component is a separate repository included as a git submodule. See individual repos for detailed documentation.
 
-### Node Development
-```bash
-cd node_runner
-poetry install             # Install dependencies
-poetry run pytest         # Run tests
-```
+## Documentation
 
-## 📚 Documentation
+- **Architecture:** See [CLAUDE.md](./CLAUDE.md) for technical details
+- **API Reference:** http://localhost:8090/docs (when running)
+- **Node Development:** Check [nodes/CLAUDE.md](./nodes/CLAUDE.md)
+- **Website:** https://www.polysynergy.com/ams
 
-- **API Documentation**: Available at `http://localhost:8090/docs` when running locally
-- **Architecture Guide**: See [CLAUDE.md](./CLAUDE.md) for detailed technical documentation
-- **Node Development**: Check individual package documentation in respective directories
+## Contributing
 
-## 🤝 Contributing
+Contributions welcome! This is an early-stage project - expect rough edges and rapid iteration.
 
-Contributions are welcome! Please see the contributing guidelines and code of conduct before getting started.
-
-### Development Workflow
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes with tests
+3. Add tests for new functionality
 4. Submit a pull request
 
-### Code Standards
-- TypeScript for frontend development
-- Python with type hints for backend
+**Development standards:**
+- Python with type hints
+- TypeScript for frontend
 - Comprehensive test coverage
-- Docker for consistent development environments
+- Docker for consistency
 
-## 📄 License
+## License
 
-This project is licensed under the Business Source License 1.1 (BSL 1.1). See the [LICENSE](./LICENSE) file for details.
+Licensed under **Business Source License 1.1 (BSL 1.1)**
 
-- **Open Source**: Code is publicly available and can be used freely
-- **Commercial Restriction**: Cannot be offered as a commercial SaaS by third parties
-- **Change Date**: January 1, 2028 (becomes Apache 2.0 license)
+- ✅ **Free to use** for non-commercial purposes
+- ✅ **Source available** - full transparency
+- ❌ **Cannot offer as SaaS** to third parties
+- 📅 **Becomes Apache 2.0** on January 1, 2028
 
-## 🌐 Links
+For commercial licensing: [dion@polysynergy.com](mailto:dion@polysynergy.com)
 
-- **Website**: [polysynergy.com](https://www.polysynergy.com)
-- **Community**: [Join our Discord](https://discord.gg/H8eQACAhkX)
+## Community
 
-## 🚧 Roadmap
-
-- [ ] Make cloud dependencies optional for local development
-- [ ] Enhanced node library with more integrations
-- [ ] Complete Agno AI agent framework integration
-- [ ] Workflow templates and marketplace
+- **Discord:** [Join our community](https://discord.gg/H8eQACAhkX)
+- **Website:** [polysynergy.com](https://www.polysynergy.com)
+- **Issues:** [GitHub Issues](https://github.com/dionsnoeijen/polysynergy/issues)
 
 ---
 
 <div align="center">
-  Made with ❤️
+  Built by developers, for developers who refuse black boxes.
 </div>
