@@ -9,6 +9,10 @@ last_updated: "2025-10-08"
 
 # RAG Basics in PolySynergy Studio
 
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSOgC79wRSo" title="RAG Basics Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 In this tutorial, you'll learn how to create a Retrieval-Augmented Generation (RAG) workflow in PolySynergy Studio. RAG combines the power of large language models with external knowledge sources to provide more accurate and contextually relevant responses.
 
 ---

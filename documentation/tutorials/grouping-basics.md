@@ -9,6 +9,10 @@ last_updated: "2025-10-08"
 
 # Grouping Basics in PolySynergy Studio
 
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/30w3T7Xxtz0" title="Grouping Basics Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 In this tutorial, you'll learn how to create a group of nodes in PolySynergy Studio. Grouping nodes helps you organize your workflows, making them easier to manage and understand.
 
 <div class="info">

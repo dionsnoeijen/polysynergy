@@ -9,6 +9,10 @@ last_updated: "2025-10-08"
 
 # Agent Basics in PolySynergy Studio
 
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/evgV7HefDQ0" title="Agent Basics Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 In this tutorial, you'll learn how to create an agent in PolySynergy Studio. Agents are autonomous entities that can perform tasks, make decisions, and interact with other agents or systems.
 
 ---

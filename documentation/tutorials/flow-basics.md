@@ -9,6 +9,10 @@ last_updated: "2025-10-08"
 
 # Flow Basics in PolySynergy Studio
 
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VcUy17H1uRc" title="Flow Basics Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 ## Step 1: Create a new blueprint
 
 Create a new blueprint, so we have an empty canvas.

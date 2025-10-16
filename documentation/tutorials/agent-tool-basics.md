@@ -9,6 +9,10 @@ last_updated: "2025-10-08"
 
 # Agent Tool Basics in PolySynergy Studio
 
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q2OUCCy572w" title="Agent Tool Basics Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 In this tutorial, you'll learn how to create an agent that uses tools in PolySynergy Studio. Tools allow agents to interact with external systems, perform specific tasks, and enhance their capabilities.
 
 ---
