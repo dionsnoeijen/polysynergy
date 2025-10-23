@@ -21,3 +21,13 @@ output "router_ecs_sg_id" {
 output "lb_sg_router_id" {
   value = aws_security_group.lb_sg_router.id
 }
+
+output "lambda_execution_role_arn" {
+  value       = aws_iam_role.lambda_execution_role.arn
+  description = "ARN of the Lambda execution role with S3, DynamoDB, and Secrets Manager access"
+}
+
+output "lambda_execution_role_name" {
+  value       = aws_iam_role.lambda_execution_role.name
+  description = "Name of the Lambda execution role"
+}

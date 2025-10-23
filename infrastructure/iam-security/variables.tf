@@ -25,3 +25,9 @@ variable "lb_security_group_id" {
   description = "ID van de security group voor de load balancer"
   type        = string
 }
+
+variable "environment" {
+  description = "Environment name (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
