@@ -69,6 +69,8 @@ services:
       PROJECT_DB: /sqlite_data/polysynergy.db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       AGNO_POSTGRES_PASSWORD_FILE: /run/secrets/agno_postgres_password
+      RELOAD_DIRS: --reload-dir /app --reload-dir /nodes --reload-dir /node_runner --reload-dir /nodes_agno
+      PYTHONDONTWRITEBYTECODE: 1
     env_file:
       - /opt/polysynergy-orchestrator/api-local/.env
     secrets:
