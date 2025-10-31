@@ -19,3 +19,6 @@
 [submodule "portal"]
 	path = portal
 	url = https://github.com/dionsnoeijen/polysynergy-portal.git
+[submodule "section_field"]
+	path = section_field
+	url = git@github.com:dionsnoeijen/polysynergy_section_field.git
