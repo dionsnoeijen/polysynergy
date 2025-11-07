@@ -25,6 +25,20 @@ services:
     networks:
       - internal
 
+  sections_db:
+    image: agnohq/pgvector:16
+    environment:
+      POSTGRES_DB: sections_db
+      POSTGRES_USER: sections_user
+      POSTGRES_PASSWORD: sections_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./sections_db_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - internal
+
   redis:
     image: redis:8
     ports:
@@ -55,6 +69,7 @@ services:
       - RELOAD_DIRS=--reload-dir /app --reload-dir /nodes --reload-dir /node_runner --reload-dir /nodes_agno --reload-dir /nodes_dev
     depends_on:
       - db
+      - sections_db
       - redis
 
   portal:

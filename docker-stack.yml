@@ -47,7 +47,30 @@ services:
         delay: 5s
         max_attempts: 3
 
-  
+  sections_db:
+    image: postgres:14
+    ports:
+      - "5434:5432"  # Publiek bereikbaar op poort 5434
+    environment:
+      POSTGRES_DB: sections_db
+      POSTGRES_USER: sections_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/sections_postgres_password
+    secrets:
+      - sections_postgres_password
+    volumes:
+      - /opt/polysynergy-orchestrator/sections_db_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
+
   redis:
     image: redis:8
     ports:
@@ -69,6 +92,7 @@ services:
       PROJECT_DB: /sqlite_data/polysynergy.db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       AGNO_POSTGRES_PASSWORD_FILE: /run/secrets/agno_postgres_password
+      SECTIONS_POSTGRES_PASSWORD_FILE: /run/secrets/sections_postgres_password
       RELOAD_DIRS: --reload-dir /app --reload-dir /nodes --reload-dir /node_runner --reload-dir /nodes_agno
       PYTHONDONTWRITEBYTECODE: 1
     env_file:
@@ -76,6 +100,7 @@ services:
     secrets:
       - postgres_password
       - agno_postgres_password
+      - sections_postgres_password
       - redis_password
     volumes:
       - /opt/polysynergy-orchestrator/api-local:/app
@@ -155,6 +180,8 @@ volumes:
     driver: local
   agno_db_data:
     driver: local
+  sections_db_data:
+    driver: local
   redis_data:
     driver: local
   api_data:
@@ -179,6 +206,8 @@ secrets:
   postgres_password:
     external: true
   agno_postgres_password:
+    external: true
+  sections_postgres_password:
     external: true
   redis_password:
     external: true
