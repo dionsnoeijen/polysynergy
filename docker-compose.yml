@@ -46,6 +46,47 @@ services:
     networks:
       - internal
 
+  dynamodb_local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./dynamodb_local_data:/data
+    networks:
+      - internal
+
+  dynamodb_admin:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: dynamodb-admin
+    ports:
+      - "8002:8001"
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb-local:8000
+      AWS_REGION: eu-central-1
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+    networks:
+      - internal
+    depends_on:
+      - dynamodb_local
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio-local
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # Web Console
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - ./minio_data:/data
+    networks:
+      - internal
+
   api_local:
     build:
       context: .
@@ -71,6 +112,8 @@ services:
       - db
       - sections_db
       - redis
+      - dynamodb_local
+      - minio
 
   portal:
     build:

@@ -26,26 +26,25 @@ Perfect for developers building AI applications who need:
 
 > **Status:** Currently in **alpha** - actively developed and used in production by early adopters. Expect breaking changes.
 
-## 🚧 Local Development Setup (In Progress)
+## 🚀 Quick Start
 
-**Important:** The local development setup is currently being refactored to remove AWS cloud dependencies. The platform runs in production but local `docker compose` setup is not yet fully functional.
-
-**Current status:**
-- ✅ Production deployment works (see [polysynergy.com](https://www.polysynergy.com))
-- 🚧 Local development environment being decoupled from AWS
-- 📅 Estimated availability: Q1 2026
-
-**Want to try it now?** Join our [Discord](https://discord.gg/H8eQACAhkX) for early access or custom deployment support.
-
-### Quick Start (Once Available)
+PolySynergy runs fully self-hosted with Docker - no cloud dependencies required.
 
 ```bash
 # Clone with submodules
 git clone --recurse-submodules https://github.com/dionsnoeijen/polysynergy.git
 cd polysynergy/orchestrator
 
+# Configure environment (copy .env.example to .env in each service)
+cp api-local/.env.example api-local/.env
+cp router/.env.example router/.env
+cp portal/.env.example portal/.env
+
 # Start all services
 docker compose up -d
+
+# Initialize local databases
+docker compose exec api_local poetry run python scripts/init_dynamodb_local.py
 
 # Access the platform
 # Portal:  http://localhost:4000
@@ -54,6 +53,32 @@ docker compose up -d
 ```
 
 **Requirements:** Docker, Docker Compose
+
+**Self-hosted stack includes:**
+- PostgreSQL database
+- Redis for caching and pub/sub
+- DynamoDB Local for execution state
+- MinIO for S3-compatible object storage
+
+### Optional: Self-Hosted AI with Ollama
+
+For completely local AI without external APIs, add Ollama:
+
+```bash
+# Start with Ollama included
+docker-compose -f docker-compose.yml -f docker-compose.ollama.yml up -d
+
+# Pull AI models (examples)
+docker exec ollama-local ollama pull llama3.1    # ~4.7 GB
+docker exec ollama-local ollama pull mistral     # ~4.1 GB
+
+# Configure in .env
+echo "OLLAMA_HOST=http://ollama:11434" >> api-local/.env
+
+# Use ModelOllama nodes in workflows
+```
+
+**Note:** Ollama requires ~10-15 GB disk space (5 GB image + models)
 
 ## Key Features
 
@@ -71,10 +96,10 @@ Drag-and-drop interface with **40+ node types** including:
 - Detailed logging and error tracking
 - Full control over AI context and prompts
 
-### 🚀 Production-Ready Architecture
-- **Microservices** design with Docker
-- **Serverless** deployment via AWS Lambda (optional)
-- **Scalable** PostgreSQL + Redis stack
+### 🚀 Deployment Options
+- **Self-hosted** with Docker Compose (fully local, no cloud dependencies)
+- **Cloud** deployment with AWS Lambda (optional, for serverless scaling)
+- **Scalable** PostgreSQL + Redis + DynamoDB stack
 - **Secure** with OIDC authentication
 
 ### 🔧 Developer-First
@@ -87,10 +112,10 @@ Drag-and-drop interface with **40+ node types** including:
 
 | Layer | Technologies |
 |-------|-------------|
-| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS, Konva.js |
-| **Backend** | FastAPI, SQLAlchemy 2.0, PostgreSQL, Redis |
-| **Execution** | Python 3.12, Poetry, AWS Lambda (optional) |
-| **AI/ML** | OpenAI, Anthropic, Mistral, Ollama, Qdrant (vector DB) |
+| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS |
+| **Backend** | FastAPI, PostgreSQL, Redis, DynamoDB |
+| **Execution** | Python 3.12, Docker / AWS Lambda |
+| **AI/ML** | OpenAI, Anthropic, Mistral, Ollama |
 
 ## Project Structure
 
@@ -115,18 +140,13 @@ Each component is a separate repository included as a git submodule. See individ
 
 ## Contributing
 
-Contributions welcome! This is an early-stage project - expect rough edges and rapid iteration.
+Contributions welcome! This is an early-stage project with rapid iteration.
 
 1. Fork the repository
 2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
+3. Submit a pull request
 
-**Development standards:**
-- Python with type hints
-- TypeScript for frontend
-- Comprehensive test coverage
-- Docker for consistency
+See individual component READMEs for development guidelines.
 
 ## License
 

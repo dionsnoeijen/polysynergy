@@ -7,3 +7,6 @@
 /lambda_runner
 /agno_session_db_data
 /testimages
+/minio_data
+/ollama_data
+/dynamodb_local_data

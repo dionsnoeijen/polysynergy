@@ -1,0 +1,46 @@
+# Optional: Self-Hosted AI with Ollama
+#
+# This file adds Ollama for local LLM inference without external API dependencies.
+#
+# IMPORTANT: Ollama requires significant disk space:
+# - Docker image: ~5 GB
+# - Models: 1-70 GB each (e.g., Llama 3.1 8B = ~4.7 GB)
+# - Total: Expect 10-15 GB minimum for basic setup
+#
+# Usage:
+#   docker-compose -f docker-compose.yml -f docker-compose.ollama.yml up -d
+#
+# After startup, pull models:
+#   docker exec ollama-local ollama pull llama3.1
+#   docker exec ollama-local ollama pull mistral
+#
+# Configure PolySynergy to use Ollama:
+#   1. Set OLLAMA_HOST=http://ollama:11434 in api-local/.env
+#   2. Use ModelOllama node in your workflows
+#   3. Connect to AgnoAgent nodes like other AI providers
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-local
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_data:/root/.ollama
+    networks:
+      - internal
+    restart: unless-stopped
+
+    # Uncomment for GPU support (requires NVIDIA GPU + nvidia-container-toolkit):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+networks:
+  internal:
+    external: true
+    name: orchestrator_internal
