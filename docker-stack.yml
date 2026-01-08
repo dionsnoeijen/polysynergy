@@ -135,6 +135,10 @@ services:
       - "8080:8080"
     environment:
       ROUTER_ENV: production
+      ROUTER_LOCAL_MODE: "true"
+      DYNAMODB_LOCAL_ENDPOINT: http://dynamodb_local:8000
+      LOCAL_API_ENDPOINT: http://api_local:8090
+      DYNAMODB_ROUTING_TABLE: polysynergy_routes
     volumes:
       - /opt/polysynergy-orchestrator/router:/app
     networks:
