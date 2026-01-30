@@ -84,6 +84,19 @@ services:
     networks:
       - internal
 
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
+    volumes:
+      - dynamodb_data:/data
+    networks:
+      - internal
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+
   api_local:
     image: polysynergy-api:latest
     ports:
@@ -136,7 +149,7 @@ services:
     environment:
       ROUTER_ENV: production
       ROUTER_LOCAL_MODE: "true"
-      DYNAMODB_LOCAL_ENDPOINT: http://dynamodb_local:8000
+      DYNAMODB_LOCAL_ENDPOINT: http://dynamodb-local:8000
       LOCAL_API_ENDPOINT: http://api_local:8090
       DYNAMODB_ROUTING_TABLE: polysynergy_routes
     volumes:
@@ -187,6 +200,8 @@ volumes:
   sections_db_data:
     driver: local
   redis_data:
+    driver: local
+  dynamodb_data:
     driver: local
   api_data:
     driver: local
