@@ -10,3 +10,4 @@
 /minio_data
 /ollama_data
 /dynamodb_local_data
+/nodes_privacy
