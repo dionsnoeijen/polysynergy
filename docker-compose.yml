@@ -104,7 +104,6 @@ services:
       - ./nodes_agno:/nodes_agno
       - ./nodes_dev:/nodes_dev
       - ./nodes_privacy:/nodes_privacy
-      - ../possession:/possession
     networks:
       - internal
     environment:
@@ -126,7 +125,6 @@ services:
     volumes:
       - ./portal:/app
       - ./portal/node_modules:/app/node_modules
-      - ../possession-react:/possession-react
     environment:
       NODE_ENV: development
       PORT: 4000
